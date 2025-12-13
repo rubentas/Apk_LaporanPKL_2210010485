@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Models\Document;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
@@ -565,5 +566,286 @@ class ReportController extends Controller
     }
 
     return $pdf->download('laporan-dokumen-bermasalah-' . date('Y-m-d') . '.pdf');
+  }
+
+  /**
+   * Laporan Dokumen Per Kategori Kredit - Web View
+   */
+  public function dokumenPerKategori(Request $request)
+  {
+    // Ambil semua kategori yang ada di database
+    $allCategories = Document::distinct()
+      ->whereNotNull('kategori_kredit')
+      ->orderBy('kategori_kredit')
+      ->pluck('kategori_kredit')
+      ->toArray();
+
+    // Label mapping untuk display
+    $categoryLabels = [
+      'KUR (Kredit Usaha Rakyat)' => 'KUR (Kredit Usaha Rakyat)',
+      'KPR (Kredit Pemilikan Rumah)' => 'KPR (Kredit Pemilikan Rumah)',
+      'KKB (Kredit Kendaraan Bermotor)' => 'KKB (Kredit Kendaraan Bermotor)',
+      'Kredit Modal Kerja' => 'Kredit Modal Kerja',
+      'Kredit Investasi' => 'Kredit Investasi',
+      'Kredit Konsumsi' => 'Kredit Konsumsi',
+      'Lainnya' => 'Lainnya'
+    ];
+
+    // Build categories array
+    $categories = [];
+    foreach ($allCategories as $cat) {
+      $categories[$cat] = $categoryLabels[$cat] ?? $cat;
+    }
+
+    // Validasi filter kategori jika ada
+    $selectedCategory = $request->input('kategori');
+    if ($selectedCategory && !in_array($selectedCategory, $allCategories)) {
+      return redirect()->route('reports.dokumen-per-kategori')
+        ->with('error', 'Kategori yang dipilih tidak valid');
+    }
+
+    // Hitung statistik per kategori
+    $reportData = [];
+    $totalAll = 0;
+
+    foreach ($categories as $key => $label) {
+      // Hitung total dokumen untuk kategori ini
+      $total = Document::where('kategori_kredit', $key)->count();
+
+      if ($total === 0) continue; // Skip kategori tanpa dokumen
+
+      // Hitung per status
+      $pending = Document::where('kategori_kredit', $key)
+        ->where('status', 'pending')
+        ->count();
+
+      $verified = Document::where('kategori_kredit', $key)
+        ->where('status', 'verified')
+        ->count();
+
+      $rejected = Document::where('kategori_kredit', $key)
+        ->where('status', 'rejected')
+        ->count();
+
+      // Hitung expired menggunakan scope dari model
+      $expired = Document::where('kategori_kredit', $key)
+        ->expired()
+        ->count();
+
+      $totalAll += $total;
+
+      // Hitung rata-rata waktu verifikasi (dalam hari)
+      $avgVerification = 0;
+      $verifiedDocs = Document::where('kategori_kredit', $key)
+        ->where('status', 'verified')
+        ->whereNotNull('verified_at')
+        ->whereNotNull('created_at')
+        ->get(['created_at', 'verified_at']);
+
+      if ($verifiedDocs->count() > 0) {
+        $totalDays = 0;
+        $countValid = 0;
+
+        foreach ($verifiedDocs as $doc) {
+          if ($doc->verified_at && $doc->created_at) {
+            $diffDays = $doc->created_at->diffInDays($doc->verified_at);
+            if ($diffDays >= 0) {
+              $totalDays += $diffDays;
+              $countValid++;
+            }
+          }
+        }
+
+        if ($countValid > 0) {
+          $avgVerification = round($totalDays / $countValid, 1);
+        }
+      }
+
+      $reportData[$key] = [
+        'label' => $label,
+        'total' => $total,
+        'pending' => $pending,
+        'verified' => $verified,
+        'rejected' => $rejected,
+        'expired' => $expired,
+        'avg_verification' => $avgVerification,
+        'percentage' => 0 // akan dihitung setelah semua data terkumpul
+      ];
+    }
+
+    // Hitung persentase untuk setiap kategori
+    if ($totalAll > 0) {
+      foreach ($reportData as $key => $data) {
+        $reportData[$key]['percentage'] = round(($data['total'] / $totalAll) * 100, 1);
+      }
+    }
+
+    // Urutkan berdasarkan total dokumen (terbanyak ke tersedikit)
+    uasort($reportData, function ($a, $b) {
+      return $b['total'] <=> $a['total'];
+    });
+
+    // Summary statistics
+    $summary = [
+      'total_categories' => count($reportData),
+      'total_documents' => $totalAll,
+      'avg_docs_per_category' => count($reportData) > 0
+        ? round($totalAll / count($reportData), 1)
+        : 0
+    ];
+
+    // Filter untuk single kategori jika dipilih
+    if ($selectedCategory && isset($reportData[$selectedCategory])) {
+      $reportData = [$selectedCategory => $reportData[$selectedCategory]];
+      $summary = [
+        'total_categories' => 1,
+        'total_documents' => $reportData[$selectedCategory]['total'],
+        'avg_docs_per_category' => $reportData[$selectedCategory]['total']
+      ];
+    }
+
+    return view('reports.dokumen-per-kategori', compact(
+      'categories',
+      'reportData',
+      'summary'
+    ));
+  }
+
+  /**
+   * Export PDF Laporan Dokumen Per Kategori
+   */
+  public function dokumenPerKategoriPdf(Request $request)
+  {
+    // Ambil semua kategori yang ada di database
+    $allCategories = Document::distinct()
+      ->whereNotNull('kategori_kredit')
+      ->orderBy('kategori_kredit')
+      ->pluck('kategori_kredit')
+      ->toArray();
+
+    // Label mapping
+    $categoryLabels = [
+      'KUR (Kredit Usaha Rakyat)' => 'KUR (Kredit Usaha Rakyat)',
+      'KPR (Kredit Pemilikan Rumah)' => 'KPR (Kredit Pemilikan Rumah)',
+      'KKB (Kredit Kendaraan Bermotor)' => 'KKB (Kredit Kendaraan Bermotor)',
+      'Kredit Modal Kerja' => 'Kredit Modal Kerja',
+      'Kredit Investasi' => 'Kredit Investasi',
+      'Kredit Konsumsi' => 'Kredit Konsumsi',
+      'Lainnya' => 'Lainnya'
+    ];
+
+    $categories = [];
+    foreach ($allCategories as $cat) {
+      $categories[$cat] = $categoryLabels[$cat] ?? $cat;
+    }
+
+    // Hitung statistik per kategori
+    $reportData = [];
+    $totalAll = 0;
+
+    foreach ($categories as $key => $label) {
+      $total = Document::where('kategori_kredit', $key)->count();
+
+      if ($total === 0) continue;
+
+      $pending = Document::where('kategori_kredit', $key)->where('status', 'pending')->count();
+      $verified = Document::where('kategori_kredit', $key)->where('status', 'verified')->count();
+      $rejected = Document::where('kategori_kredit', $key)->where('status', 'rejected')->count();
+      $expired = Document::where('kategori_kredit', $key)->expired()->count();
+
+      $totalAll += $total;
+
+      // Rata-rata verifikasi
+      $avgVerification = 0;
+      $verifiedDocs = Document::where('kategori_kredit', $key)
+        ->where('status', 'verified')
+        ->whereNotNull('verified_at')
+        ->whereNotNull('created_at')
+        ->get(['created_at', 'verified_at']);
+
+      if ($verifiedDocs->count() > 0) {
+        $totalDays = 0;
+        $countValid = 0;
+
+        foreach ($verifiedDocs as $doc) {
+          if ($doc->verified_at && $doc->created_at) {
+            $diffDays = $doc->created_at->diffInDays($doc->verified_at);
+            if ($diffDays >= 0) {
+              $totalDays += $diffDays;
+              $countValid++;
+            }
+          }
+        }
+
+        if ($countValid > 0) {
+          $avgVerification = round($totalDays / $countValid, 1);
+        }
+      }
+
+      $reportData[$key] = [
+        'label' => $label,
+        'total' => $total,
+        'pending' => $pending,
+        'verified' => $verified,
+        'rejected' => $rejected,
+        'expired' => $expired,
+        'avg_verification' => $avgVerification,
+        'percentage' => 0
+      ];
+    }
+
+    // Hitung persentase
+    if ($totalAll > 0) {
+      foreach ($reportData as $key => $data) {
+        $reportData[$key]['percentage'] = round(($data['total'] / $totalAll) * 100, 1);
+      }
+    }
+
+    // Urutkan
+    uasort($reportData, function ($a, $b) {
+      return $b['total'] <=> $a['total'];
+    });
+
+    // Summary
+    $summary = [
+      'total_categories' => count($reportData),
+      'total_documents' => $totalAll,
+      'avg_docs_per_category' => count($reportData) > 0
+        ? round($totalAll / count($reportData), 1)
+        : 0,
+      'tanggal_cetak' => now()->format('d/m/Y H:i:s')
+    ];
+
+    // Filter single kategori jika ada
+    $selectedCategory = $request->input('kategori');
+    if ($selectedCategory && isset($reportData[$selectedCategory])) {
+      $reportData = [$selectedCategory => $reportData[$selectedCategory]];
+      $summary['total_categories'] = 1;
+      $summary['total_documents'] = $reportData[$selectedCategory]['total'];
+      $summary['avg_docs_per_category'] = $reportData[$selectedCategory]['total'];
+    }
+
+    $data = [
+      'reportData' => $reportData,
+      'summary' => $summary,
+      'filter' => $request->all(),
+      'selectedCategoryLabel' => $selectedCategory && isset($categories[$selectedCategory])
+        ? $categories[$selectedCategory]
+        : null
+    ];
+
+    $pdf = Pdf::loadView('reports.pdf.dokumen-per-kategori', $data)
+      ->setPaper('a4', 'portrait');
+
+    // Preview atau download
+    if ($request->has('preview') && $request->preview == 1) {
+      return $pdf->stream('laporan-dokumen-per-kategori-' . date('Y-m-d') . '.pdf');
+    }
+
+    $filename = $selectedCategory
+      ? 'laporan-kategori-' . Str::slug($selectedCategory) . '-' . date('Y-m-d') . '.pdf'
+      : 'laporan-dokumen-per-kategori-' . date('Y-m-d') . '.pdf';
+
+    return $pdf->download($filename);
   }
 }

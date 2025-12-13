@@ -70,6 +70,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dokumen-bermasalah', [ReportController::class, 'dokumenBermasalah'])->name('dokumen-bermasalah');
     Route::get('/dokumen-bermasalah/pdf', [ReportController::class, 'dokumenBermasalahPdf'])->name('dokumen-bermasalah.pdf');
+
+    // Laporan Dokumen Per Kategori Kredit
+    Route::get('/dokumen-per-kategori', [ReportController::class, 'dokumenPerKategori'])->name('dokumen-per-kategori');
+    Route::get('/dokumen-per-kategori/pdf', [ReportController::class, 'dokumenPerKategoriPdf'])->name('dokumen-per-kategori.pdf');
   });
 
   // User Management routes (Admin only) - Middleware tambahan untuk admin
@@ -80,7 +84,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Fallback route untuk 404
 Route::fallback(function () {
-  if (auth()->check()) {
+  if (app('auth')->check()) {
     return redirect()->route('dashboard');
   }
   return redirect()->route('login');

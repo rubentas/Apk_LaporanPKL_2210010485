@@ -180,7 +180,7 @@
           <div class="demo-info">
             <p class="mb-1"><strong><i class="fas fa-info-circle me-2"></i>Akun Demo:</strong></p>
             <p class="mb-1"><small><strong>Admin:</strong> admin@bri.com | password123</small></p>
-            <p class="mb-0"><small><strong>Verifikator:</strong> verifikator@bri.com | password123</small></p>
+            <p class="mb-0"><small><strong>Verifikator:</strong> verifikator@bri.co.id | password123</small></p>
           </div>
         </div>
       </div>

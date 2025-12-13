@@ -109,6 +109,13 @@
                 <p>Dokumen Bermasalah</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('reports.dokumen-per-kategori') }}"
+                class="nav-link {{ request()->routeIs('reports.dokumen-per-kategori') ? 'active' : '' }}">
+                <i class="fas fa-filter nav-icon"></i>
+                <p>Per Kategori Kredit</p>
+              </a>
+            </li>
           </ul>
         </li>
 
