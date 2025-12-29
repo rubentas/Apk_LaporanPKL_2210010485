@@ -140,7 +140,7 @@
             </div>
 
             <!-- Form Verifikasi (hanya untuk verifikator & admin) -->
-            @if ($document->status == 'pending' && in_array(auth()->user()->role, ['admin', 'verifikator']))
+            @if ($document->status == 'pending' && auth()->user()->role === 'verifikator')
               <div class="row mt-4">
                 <div class="col-md-12">
                   <div class="card card-primary">
@@ -200,6 +200,105 @@
                 </div>
               </div>
             </div>
+
+            <!-- INFO KREDIT BARU -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="card card-default">
+                  <div class="card-header">
+                    <h3 class="card-title">
+                      <i class="fas fa-credit-card mr-2"></i>
+                      Informasi Kredit
+                    </h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <table class="table table-bordered">
+                          <tr>
+                            <th width="40%">Tahun Pengajuan</th>
+                            <td>{{ $document->tahun_pengajuan ?? '-' }}</td>
+                          </tr>
+                          <tr>
+                            <th>Tenor (Bulan)</th>
+                            <td>{{ $document->tenor ?? '-' }} bulan</td>
+                          </tr>
+                          <tr>
+                            <th>Estimasi Selesai</th>
+                            <td>
+                              @if ($document->estimasi_selesai)
+                                {{ $document->estimasi_selesai }}
+                                @if ($document->estimasi_selesai <= date('Y'))
+                                  <span class="badge badge-success ml-2">Selesai</span>
+                                @else
+                                  <span class="badge badge-info ml-2">Berjalan</span>
+                                @endif
+                              @else
+                                -
+                              @endif
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+
+                      <div class="col-md-6">
+                        <table class="table table-bordered">
+                          <tr>
+                            <th width="40%">Nominal Kredit</th>
+                            <td>
+                              @if ($document->nominal_kredit)
+                                Rp {{ number_format($document->nominal_kredit, 0, ',', '.') }}
+                              @else
+                                -
+                              @endif
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Suku Bunga</th>
+                            <td>
+                              @if ($document->suku_bunga)
+                                {{ $document->suku_bunga }}%
+                                <small>({{ $document->jenis_bunga ?? '-' }})</small>
+                              @else
+                                -
+                              @endif
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Status Riwayat</th>
+                            <td>
+                              @if ($document->status_riwayat)
+                                @if ($document->status_riwayat == 'bersih')
+                                  <span class="badge badge-success">Bersih</span>
+                                @elseif($document->status_riwayat == 'pernah_telat')
+                                  <span class="badge badge-warning">Pernah Telat</span>
+                                @else
+                                  <span class="badge badge-danger">Bermasalah</span>
+                                @endif
+                              @else
+                                -
+                              @endif
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+                    @if ($document->keterangan_reject)
+                      <div class="row mt-3">
+                        <div class="col-12">
+                          <div class="alert alert-warning">
+                            <strong>Keterangan Reject:</strong><br>
+                            {{ $document->keterangan_reject }}
+                          </div>
+                        </div>
+                      </div>
+                    @endif
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

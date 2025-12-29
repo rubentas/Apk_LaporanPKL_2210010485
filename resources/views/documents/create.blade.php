@@ -28,7 +28,7 @@
                   <div class="form-group">
                     <label for="nama_nasabah">Nama Nasabah <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('nama_nasabah') is-invalid @enderror"
-                      id="nama_nasabah" name="nama_nasabah" value="{{ old('nama_nasabah') }}" required
+                      id="nama_nasabah" name="nama_nasabah" value="{{ $nama_nasabah ?? old('nama_nasabah') }}" required
                       placeholder="Masukkan nama nasabah">
                     @error('nama_nasabah')
                       <span class="invalid-feedback">{{ $message }}</span>
@@ -39,7 +39,8 @@
                   <div class="form-group">
                     <label for="no_rekening">No Rekening <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('no_rekening') is-invalid @enderror" id="no_rekening"
-                      name="no_rekening" value="{{ old('no_rekening') }}" required placeholder="Masukkan nomor rekening">
+                      name="no_rekening" value="{{ $no_rekening ?? old('no_rekening') }}" required
+                      placeholder="Masukkan nomor rekening">
                     @error('no_rekening')
                       <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -52,7 +53,7 @@
                   <div class="form-group">
                     <label for="no_ktp">No KTP <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('no_ktp') is-invalid @enderror" id="no_ktp"
-                      name="no_ktp" value="{{ old('no_ktp') }}" required placeholder="Masukkan nomor KTP">
+                      name="no_ktp" value="{{ $no_ktp ?? old('no_ktp') }}" required placeholder="Masukkan nomor KTP">
                     @error('no_ktp')
                       <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -157,6 +158,92 @@
                       id="expired_date" name="expired_date" value="{{ old('expired_date') }}">
                     <small class="text-muted">Kosongkan jika tidak ada expired date</small>
                     @error('expired_date')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="tahun_pengajuan">Tahun Pengajuan <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('tahun_pengajuan') is-invalid @enderror"
+                      id="tahun_pengajuan" name="tahun_pengajuan" value="{{ old('tahun_pengajuan', date('Y')) }}"
+                      min="2000" max="2030" required>
+                    @error('tahun_pengajuan')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="tenor">Tenor (Bulan) <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('tenor') is-invalid @enderror" id="tenor"
+                      name="tenor" value="{{ old('tenor') }}" min="1" max="360" placeholder="12"
+                      required>
+                    @error('tenor')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="nominal_kredit">Nominal Kredit <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('nominal_kredit') is-invalid @enderror"
+                      id="nominal_kredit" name="nominal_kredit" value="{{ old('nominal_kredit') }}"
+                      placeholder="Contoh: 50000000" required>
+                    @error('nominal_kredit')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="suku_bunga">Suku Bunga (%) <span class="text-danger">*</span></label>
+                    <input type="number" step="0.01"
+                      class="form-control @error('suku_bunga') is-invalid @enderror" id="suku_bunga" name="suku_bunga"
+                      value="{{ old('suku_bunga') }}" placeholder="6.5" required>
+                    @error('suku_bunga')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="jenis_bunga">Jenis Bunga <span class="text-danger">*</span></label>
+                    <select class="form-control @error('jenis_bunga') is-invalid @enderror" id="jenis_bunga"
+                      name="jenis_bunga" required>
+                      <option value="">-- Pilih Jenis Bunga --</option>
+                      <option value="flat" {{ old('jenis_bunga') == 'flat' ? 'selected' : '' }}>Flat</option>
+                      <option value="bertingkat" {{ old('jenis_bunga') == 'bertingkat' ? 'selected' : '' }}>Bertingkat
+                      </option>
+                    </select>
+                    @error('jenis_bunga')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="status_riwayat">Status Riwayat <span class="text-danger">*</span></label>
+                    <select class="form-control @error('status_riwayat') is-invalid @enderror" id="status_riwayat"
+                      name="status_riwayat" required>
+                      <option value="">-- Pilih Status Riwayat --</option>
+                      <option value="bersih" {{ old('status_riwayat') == 'bersih' ? 'selected' : '' }}>Bersih</option>
+                      <option value="pernah_telat" {{ old('status_riwayat') == 'pernah_telat' ? 'selected' : '' }}>
+                        Pernah Telat</option>
+                      <option value="bermasalah" {{ old('status_riwayat') == 'bermasalah' ? 'selected' : '' }}>
+                        Bermasalah</option>
+                    </select>
+                    @error('status_riwayat')
                       <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                   </div>

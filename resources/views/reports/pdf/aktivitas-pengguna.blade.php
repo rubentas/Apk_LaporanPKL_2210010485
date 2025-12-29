@@ -3,306 +3,322 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Laporan Aktivitas Pengguna - BRI</title>
+  <title>Laporan Aktivitas - BRI KC Tanjung Tabalong</title>
   <style>
-    body {
-      font-family: 'DejaVu Sans', sans-serif;
-      font-size: 9px;
-      line-height: 1.2;
+    /* RESET & BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 9pt;
+      line-height: 1.3;
+      color: #333;
+      margin: 0;
+      padding: 15mm;
+      background: #fff;
+    }
+
+    /* HEADER - CLEAN */
     .header {
       text-align: center;
       margin-bottom: 15px;
-      border-bottom: 3px solid #2c3e50;
       padding-bottom: 10px;
     }
 
     .header h1 {
-      margin: 0;
-      color: #2c3e50;
-      font-size: 18px;
+      color: #0033a0;
+      font-size: 12pt;
+      font-weight: bold;
+      margin-bottom: 2px;
     }
 
     .header h2 {
-      margin: 3px 0;
-      color: #3498db;
-      font-size: 14px;
+      color: #0033a0;
+      font-size: 11pt;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
     .header h3 {
-      margin: 3px 0;
-      color: #7f8c8d;
-      font-size: 12px;
+      color: #333;
+      font-size: 10pt;
+      margin-top: 8px;
     }
 
-    .filter-info {
-      background-color: #f8f9fa;
-      padding: 8px;
-      border-radius: 3px;
-      margin-bottom: 10px;
-      font-size: 8px;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 5px;
-      margin: 10px 0;
-    }
-
+    /* SUMMARY - SIMPLE */
     .summary-box {
-      text-align: center;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 3px;
-      background-color: #f8f9fa;
+      background: #f8f9fa;
+      padding: 10px;
+      margin: 10px 0 15px 0;
+      border-radius: 4px;
+      border-left: 4px solid #0033a0;
     }
 
-    .summary-value {
-      font-size: 14px;
-      font-weight: bold;
-      color: #2c3e50;
-      display: block;
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      font-size: 9pt;
     }
 
     .summary-label {
-      font-size: 8px;
-      color: #7f8c8d;
-      text-transform: uppercase;
-      display: block;
+      font-weight: bold;
+      color: #0033a0;
+      min-width: 100px;
+    }
+
+    .summary-value {
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* TABLE - CLEAN */
+    .table-container {
+      margin-top: 10px;
+      overflow: hidden;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 8px;
+      font-size: 8pt;
     }
 
     table th {
-      background-color: #2c3e50;
+      background: #0033a0;
       color: white;
-      padding: 6px 8px;
-      text-align: left;
+      padding: 8px 6px;
+      border: 1px solid #ddd;
       font-weight: bold;
+      text-align: left;
     }
 
     table td {
-      padding: 5px 6px;
-      border-bottom: 1px solid #eee;
+      padding: 7px 6px;
+      border: 1px solid #e0e0e0;
+      vertical-align: top;
     }
 
     table tr:nth-child(even) {
-      background-color: #f9f9f9;
+      background: #f9f9f9;
     }
 
+    /* COLUMN WIDTHS */
+    .col-no {
+      width: 30px;
+    }
+
+    .col-user {
+      width: 100px;
+    }
+
+    .col-action {
+      width: 70px;
+    }
+
+    .col-description {
+      width: auto;
+    }
+
+    .col-date {
+      width: 80px;
+    }
+
+    /* ACTION BADGES */
     .badge {
-      padding: 2px 6px;
-      border-radius: 2px;
-      font-size: 7px;
+      display: inline-block;
+      padding: 3px 6px;
+      border-radius: 3px;
+      font-size: 8pt;
       font-weight: bold;
+      text-align: center;
+      min-width: 60px;
     }
 
     .badge-upload {
-      background-color: #28a745;
+      background: #28a745;
       color: white;
     }
 
     .badge-download {
-      background-color: #17a2b8;
-      color: white;
-    }
-
-    .badge-verify {
-      background-color: #007bff;
-      color: white;
-    }
-
-    .badge-reject {
-      background-color: #dc3545;
+      background: #17a2b8;
       color: white;
     }
 
     .badge-edit {
-      background-color: #ffc107;
-      color: black;
+      background: #ffc107;
+      color: #000;
     }
 
     .badge-delete {
-      background-color: #6c757d;
+      background: #dc3545;
+      color: white;
+    }
+
+    .badge-verify {
+      background: #007bff;
+      color: white;
+    }
+
+    .badge-reject {
+      background: #6c757d;
       color: white;
     }
 
     .badge-login {
-      background-color: #6f42c1;
+      background: #6610f2;
       color: white;
     }
 
-    .badge-logout {
-      background-color: #e83e8c;
-      color: white;
-    }
-
-    .badge-login_failed {
-      background-color: #dc3545;
-      color: white;
-    }
-
-    .text-muted {
-      color: #6c757d;
-    }
-
+    /* FOOTER - MINIMAL */
     .footer {
       margin-top: 20px;
       padding-top: 8px;
       border-top: 1px solid #ddd;
-      font-size: 7px;
-      color: #6c757d;
-      text-align: right;
+      text-align: center;
+      font-size: 8pt;
+      color: #666;
     }
 
-    .page-break {
-      page-break-before: always;
-    }
-
-    .text-right {
-      text-align: right;
-    }
-
+    /* UTILITY */
     .text-center {
       text-align: center;
+    }
+
+    .small {
+      font-size: 7pt;
+      color: #777;
     }
   </style>
 </head>
 
 <body>
-  <!-- Header -->
+
+  <!-- HEADER -->
   <div class="header">
-    <h1>PT BANK RAKYAT INDONESIA (PERSERO) Tbk</h1>
-    <h2>KC TANJUNG TABALONG</h2>
-    <h3>LAPORAN AKTIVITAS PENGGUNA</h3>
-    <p>Periode: {{ date('d/m/Y') }}</p>
+    <h1>BRI KC TANJUNG TABALONG</h1>
+    <h2>Laporan Aktivitas Pengguna</h2>
+    <h3>Sistem Arsip Digital Administrasi Kredit</h3>
   </div>
 
-  <!-- Filter Info -->
-  @if (!empty($filter['user_id']) && $filter['user_id'] != 'all')
-    <div class="filter-info">
-      <strong>Filter:</strong>
-      User ID: {{ $filter['user_id'] }}
-      @if (!empty($filter['action']) && $filter['action'] != 'all')
-        | Aksi: {{ $filter['action'] }}
-      @endif
-      @if (!empty($filter['start_date']))
-        | Dari: {{ $filter['start_date'] }}
-      @endif
-      @if (!empty($filter['end_date']))
-        | Sampai: {{ $filter['end_date'] }}
-      @endif
-    </div>
-  @endif
+  <!-- ACTIVITY SUMMARY -->
+  <div class="summary-box">
+    @php
+      $actionCounts = [
+          'upload' => 0,
+          'download' => 0,
+          'verify' => 0,
+          'reject' => 0,
+          'login' => 0,
+          'edit' => 0,
+          'delete' => 0,
+      ];
 
-  <!-- Summary -->
-  @php
-    $total = $activities->count();
-    $uploads = $activities->where('action', 'upload')->count();
-    $downloads = $activities->where('action', 'download')->count();
-    $verifies = $activities->where('action', 'verify')->count();
-    $rejects = $activities->where('action', 'reject')->count();
-    $logins = $activities->where('action', 'login')->count();
-  @endphp
-  <div class="summary-grid">
-    <div class="summary-box">
-      <span class="summary-value">{{ $total }}</span>
-      <span class="summary-label">Total Aktivitas</span>
+      foreach ($activities as $activity) {
+          $action = $activity->action;
+          if (isset($actionCounts[$action])) {
+              $actionCounts[$action]++;
+          }
+      }
+
+      $totalActivities = count($activities);
+    @endphp
+
+    <div class="summary-row">
+      <span class="summary-label">Total Aktivitas:</span>
+      <span class="summary-value">{{ $totalActivities }}</span>
     </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ $uploads }}</span>
-      <span class="summary-label">Upload</span>
-    </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ $downloads }}</span>
-      <span class="summary-label">Download</span>
-    </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ $verifies }}</span>
-      <span class="summary-label">Verifikasi</span>
-    </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ $rejects }}</span>
-      <span class="summary-label">Penolakan</span>
-    </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ $logins }}</span>
-      <span class="summary-label">Login</span>
-    </div>
+    @if ($actionCounts['upload'] > 0)
+      <div class="summary-row">
+        <span class="summary-label">Upload:</span>
+        <span class="summary-value">{{ $actionCounts['upload'] }}</span>
+      </div>
+    @endif
+    @if ($actionCounts['download'] > 0)
+      <div class="summary-row">
+        <span class="summary-label">Download:</span>
+        <span class="summary-value">{{ $actionCounts['download'] }}</span>
+      </div>
+    @endif
+    @if ($actionCounts['verify'] > 0)
+      <div class="summary-row">
+        <span class="summary-label">Verifikasi:</span>
+        <span class="summary-value">{{ $actionCounts['verify'] }}</span>
+      </div>
+    @endif
+    @if ($actionCounts['reject'] > 0)
+      <div class="summary-row">
+        <span class="summary-label">Penolakan:</span>
+        <span class="summary-value">{{ $actionCounts['reject'] }}</span>
+      </div>
+    @endif
+    @if ($actionCounts['login'] > 0)
+      <div class="summary-row">
+        <span class="summary-label">Login:</span>
+        <span class="summary-value">{{ $actionCounts['login'] }}</span>
+      </div>
+    @endif
   </div>
 
-  <!-- Activities Table -->
-  <table>
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>Tanggal/Waktu</th>
-        <th>User</th>
-        <th>Aksi</th>
-        <th>Deskripsi</th>
-        <th>Dokumen</th>
-        <th>IP Address</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($activities as $index => $activity)
+  <!-- ACTIVITY LIST -->
+  <div class="table-container">
+    <table>
+      <thead>
         <tr>
-          <td class="text-center">{{ $index + 1 }}</td>
-          <td nowrap>
-            {{ $activity->created_at->format('d/m/Y') }}<br>
-            <small class="text-muted">{{ $activity->created_at->format('H:i:s') }}</small>
-          </td>
-          <td>
-            @if ($activity->user)
-              <strong>{{ $activity->user->name }}</strong><br>
-              <small class="text-muted">
-                {{ $activity->user->isAdmin() ? 'Admin' : 'Verifikator' }}
-              </small>
-            @else
-              <span class="text-muted">System</span>
-            @endif
-          </td>
-          <td>
-            <span class="badge badge-{{ $activity->action }}">
-              {{ strtoupper($activity->action) }}
-            </span>
-          </td>
-          <td>{{ $activity->description }}</td>
-          <td>
-            @if ($activity->document)
-              <small>
-                {{ $activity->document->nama_nasabah }}<br>
-                <span class="text-muted">{{ $activity->document->no_rekening }}</span>
-              </small>
-            @else
-              <span class="text-muted">-</span>
-            @endif
-          </td>
-          <td>{{ $activity->ip_address ?? '-' }}</td>
+          <th class="col-no text-center">No</th>
+          <th class="col-user">Pengguna</th>
+          <th class="col-action">Aksi</th>
+          <th class="col-description">Deskripsi</th>
+          <th class="col-date">Tanggal</th>
         </tr>
-      @endforeach
-    </tbody>
-  </table>
-
-  @if ($activities->count() == 0)
-    <div style="text-align: center; padding: 30px; color: #6c757d;">
-      <p>Tidak ada data aktivitas untuk periode ini</p>
-    </div>
-  @endif
-
-  <!-- Footer -->
-  <div class="footer">
-    <div>Dicetak pada: {{ $tanggal_cetak }}</div>
-    <div>Oleh: Sistem Manajemen Arsip Digital BRI</div>
-    <div>Halaman 1/1</div>
+      </thead>
+      <tbody>
+        @foreach ($activities as $index => $activity)
+          @php
+            $badgeClass = 'badge-' . $activity->action;
+          @endphp
+          <tr>
+            <td class="col-no text-center">{{ $loop->iteration }}</td>
+            <td>
+              {{ $activity->user->name ?? 'System' }}
+              @if ($activity->user)
+                <br><span class="small">{{ $activity->user->email ?? '' }}</span>
+              @endif
+            </td>
+            <td class="text-center">
+              <span class="badge {{ $badgeClass }}">
+                {{ strtoupper($activity->action) }}
+              </span>
+            </td>
+            <td>
+              {{ $activity->description }}
+              @if ($activity->document)
+                <br><span class="small">Dokumen: {{ $activity->document->nama_nasabah ?? '' }} (ID:
+                  {{ $activity->document_id }})</span>
+              @endif
+            </td>
+            <td class="text-center">
+              {{ $activity->created_at->format('d/m/Y') }}<br>
+              <span class="small">{{ $activity->created_at->format('H:i') }}</span>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
   </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>Dokumen ini dicetak secara otomatis dari sistem</div>
+    <div style="margin-top: 5px; color: #999; font-size: 7pt;">
+      {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
+    </div>
+  </div>
+
 </body>
 
 </html>

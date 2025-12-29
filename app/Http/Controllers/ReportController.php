@@ -92,7 +92,7 @@ class ReportController extends Controller
     $data = [
       'documents' => $documents,
       'filter' => $request->all(),
-      'tanggal_cetak' => now()->format('d/m/Y H:i:s'),
+      'tanggal_cetak' => now()->format('d/m/Y'),
     ];
 
     $pdf = Pdf::loadView('reports.pdf.daftar-dokumen-pdf', $data)
@@ -172,7 +172,7 @@ class ReportController extends Controller
       'monthlyData' => $monthlyData,
       'topKategori' => $topKategori,
       'expiringSoon' => $expiringSoon,
-      'tanggal_cetak' => now()->format('d/m/Y H:i:s'),
+      'tanggal_cetak' => now()->format('d/m/Y'),
     ];
 
     $pdf = Pdf::loadView('reports.pdf.statistik', $data)
@@ -296,7 +296,7 @@ class ReportController extends Controller
     $data = [
       'nasabahData' => $nasabahData,
       'filter' => $request->all(),
-      'tanggal_cetak' => now()->format('d/m/Y H:i:s'),
+      'tanggal_cetak' => now()->format('d/m/Y'),
       'is_single' => $request->filled('nasabah'), // apakah cetak single nasabah
     ];
 
@@ -419,7 +419,7 @@ class ReportController extends Controller
     $data = [
       'activities' => $activities,
       'filter' => $request->all(),
-      'tanggal_cetak' => now()->format('d/m/Y H:i:s'),
+      'tanggal_cetak' => now()->format('d/m/Y'),
     ];
 
     $pdf = Pdf::loadView('reports.pdf.aktivitas-pengguna', $data)
@@ -555,7 +555,7 @@ class ReportController extends Controller
       'pendingLama' => $pendingLama,
       'nikDuplikat' => $nikDuplikat,
       'summary' => $summary,
-      'tanggal_cetak' => now()->format('d/m/Y H:i:s'),
+      'tanggal_cetak' => now()->format('d/m/Y'),
     ];
 
     $pdf = Pdf::loadView('reports.pdf.dokumen-bermasalah', $data)
@@ -813,7 +813,7 @@ class ReportController extends Controller
       'avg_docs_per_category' => count($reportData) > 0
         ? round($totalAll / count($reportData), 1)
         : 0,
-      'tanggal_cetak' => now()->format('d/m/Y H:i:s')
+      'tanggal_cetak' => now()->format('d/m/Y')
     ];
 
     // Filter single kategori jika ada
@@ -847,5 +847,107 @@ class ReportController extends Controller
       : 'laporan-dokumen-per-kategori-' . date('Y-m-d') . '.pdf';
 
     return $pdf->download($filename);
+  }
+
+  /**
+   * Laporan Kredit Akan Selesai Tahun Ini - Web View
+   */
+  public function kreditAkanSelesai(Request $request)
+  {
+    $tahunIni = date('Y');
+    $tahunDepan = $tahunIni + 1;
+
+    $query = Document::query()
+      ->whereIn('estimasi_selesai', [$tahunIni, $tahunDepan])
+      ->where('status', 'verified')
+      ->orderBy('estimasi_selesai')
+      ->orderBy('nama_nasabah');
+
+    // Filter kategori
+    if ($request->filled('kategori')) {
+      $query->where('kategori_kredit', $request->kategori);
+    }
+
+    // Filter tahun estimasi
+    if ($request->filled('tahun')) {
+      $query->where('estimasi_selesai', $request->tahun);
+    }
+
+    $documents = $query->get();
+
+    // Statistik
+    $stats = [
+      'total' => $documents->count(),
+      'tahun_ini' => $documents->where('estimasi_selesai', $tahunIni)->count(),
+      'tahun_depan' => $documents->where('estimasi_selesai', $tahunDepan)->count(),
+      'total_nominal' => $documents->sum('nominal_kredit'),
+    ];
+
+    // Group by tahun untuk chart
+    $groupedByYear = $documents->groupBy('estimasi_selesai')->map(function ($group) {
+      return [
+        'count' => $group->count(),
+        'total_nominal' => $group->sum('nominal_kredit'),
+      ];
+    });
+
+    $kategoriOptions = Document::distinct()->pluck('kategori_kredit');
+
+    return view('reports.kredit-akan-selesai', compact(
+      'documents',
+      'stats',
+      'groupedByYear',
+      'kategoriOptions'
+    ));
+  }
+
+  /**
+   * Export PDF Laporan Kredit Akan Selesai
+   */
+  public function kreditAkanSelesaiPdf(Request $request)
+  {
+    $tahunIni = date('Y');
+    $tahunDepan = $tahunIni + 1;
+
+    $query = Document::query()
+      ->whereIn('estimasi_selesai', [$tahunIni, $tahunDepan])
+      ->where('status', 'verified')
+      ->orderBy('estimasi_selesai')
+      ->orderBy('nama_nasabah');
+
+    if ($request->filled('kategori')) {
+      $query->where('kategori_kredit', $request->kategori);
+    }
+
+    if ($request->filled('tahun')) {
+      $query->where('estimasi_selesai', $request->tahun);
+    }
+
+    $documents = $query->get();
+
+    $stats = [
+      'total' => $documents->count(),
+      'tahun_ini' => $documents->where('estimasi_selesai', $tahunIni)->count(),
+      'tahun_depan' => $documents->where('estimasi_selesai', $tahunDepan)->count(),
+      'total_nominal' => $documents->sum('nominal_kredit'),
+      'tanggal_cetak' => now()->format('d/m/Y'),
+    ];
+
+    $data = [
+      'documents' => $documents,
+      'stats' => $stats,
+      'filter' => $request->all(),
+      'tahun_ini' => $tahunIni,
+      'tahun_depan' => $tahunDepan,
+    ];
+
+    $pdf = Pdf::loadView('reports.pdf.kredit-akan-selesai', $data)
+      ->setPaper('a4', 'landscape');
+
+    if ($request->has('preview') && $request->preview == 1) {
+      return $pdf->stream('laporan-kredit-akan-selesai-' . date('Y-m-d') . '.pdf');
+    }
+
+    return $pdf->download('laporan-kredit-akan-selesai-' . date('Y-m-d') . '.pdf');
   }
 }

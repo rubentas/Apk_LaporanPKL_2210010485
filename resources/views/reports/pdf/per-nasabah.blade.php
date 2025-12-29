@@ -3,200 +3,154 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Laporan per Nasabah - BRI</title>
+  <title>Laporan Nasabah - BRI KC Tanjung Tabalong</title>
   <style>
-    body {
-      font-family: 'DejaVu Sans', sans-serif;
-      font-size: 10px;
-      line-height: 1.3;
+    /* RESET & BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 9pt;
+      line-height: 1.3;
+      color: #333;
+      margin: 0;
+      padding: 15mm;
+      background: #fff;
+    }
+
+    /* HEADER - CLEAN */
     .header {
       text-align: center;
       margin-bottom: 15px;
-      border-bottom: 3px solid #2c3e50;
       padding-bottom: 10px;
     }
 
     .header h1 {
-      margin: 0;
-      color: #2c3e50;
-      font-size: 18px;
+      color: #0033a0;
+      font-size: 12pt;
+      font-weight: bold;
+      margin-bottom: 2px;
     }
 
     .header h2 {
-      margin: 3px 0;
-      color: #3498db;
-      font-size: 14px;
+      color: #0033a0;
+      font-size: 11pt;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
     .header h3 {
-      margin: 3px 0;
-      color: #7f8c8d;
-      font-size: 12px;
+      color: #333;
+      font-size: 10pt;
+      margin-top: 8px;
     }
 
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin: 15px 0;
-    }
-
-    .summary-box {
-      text-align: center;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: #f8f9fa;
-    }
-
-    .summary-value {
-      font-size: 18px;
-      font-weight: bold;
-      color: #2c3e50;
-      display: block;
-    }
-
-    .summary-label {
-      font-size: 10px;
-      color: #7f8c8d;
-      text-transform: uppercase;
-      display: block;
-    }
-
+    /* NASABAH CARD - CLEAN */
     .nasabah-card {
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 10px;
       margin-bottom: 15px;
       page-break-inside: avoid;
     }
 
     .nasabah-header {
-      background-color: #ecf0f1;
-      padding: 8px;
-      border-radius: 3px;
       margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
     }
 
     .nasabah-name {
       font-weight: bold;
-      color: #2c3e50;
-      font-size: 13px;
-      margin: 0 0 3px 0;
-    }
-
-    .nasabah-info {
-      color: #7f8c8d;
-      font-size: 9px;
-      line-height: 1.4;
-    }
-
-    .nasabah-stats {
-      margin: 8px 0;
-    }
-
-    .stat-badge {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 3px;
-      font-size: 9px;
-      font-weight: bold;
-      margin-right: 5px;
+      color: #0033a0;
+      font-size: 10pt;
       margin-bottom: 3px;
     }
 
+    .nasabah-info {
+      font-size: 8pt;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .info-row {
+      margin-bottom: 2px;
+    }
+
+    /* STATS BADGES - COMPACT */
+    .stats-row {
+      display: flex;
+      gap: 6px;
+      margin: 8px 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-badge {
+      padding: 3px 6px;
+      border-radius: 3px;
+      font-size: 8pt;
+      font-weight: bold;
+    }
+
     .stat-total {
-      background-color: #3498db;
+      background: #0033a0;
       color: white;
     }
 
     .stat-pending {
-      background-color: #f39c12;
-      color: white;
+      background: #ffc107;
+      color: #000;
     }
 
     .stat-verified {
-      background-color: #27ae60;
+      background: #28a745;
       color: white;
     }
 
     .stat-rejected {
-      background-color: #e74c3c;
+      background: #dc3545;
       color: white;
     }
 
     .stat-expired {
-      background-color: #7f8c8d;
+      background: #6c757d;
       color: white;
+    }
+
+    /* TABLE - CLEAN */
+    .table-container {
+      margin-top: 8px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 9px;
+      font-size: 8pt;
     }
 
     table th {
-      background-color: #2c3e50;
+      background: #0033a0;
       color: white;
-      padding: 6px 8px;
-      text-align: left;
+      padding: 6px 5px;
+      border: 1px solid #ddd;
       font-weight: bold;
+      text-align: left;
     }
 
     table td {
-      padding: 5px 7px;
-      border-bottom: 1px solid #eee;
+      padding: 5px 5px;
+      border: 1px solid #e0e0e0;
     }
 
     table tr:nth-child(even) {
-      background-color: #f9f9f9;
+      background: #f9f9f9;
     }
 
-    .status-pending {
-      color: #f39c12;
-      font-weight: bold;
-    }
-
-    .status-verified {
-      color: #27ae60;
-      font-weight: bold;
-    }
-
-    .status-rejected {
-      color: #e74c3c;
-      font-weight: bold;
-    }
-
-    .status-expired {
-      color: #7f8c8d;
-      font-weight: bold;
-    }
-
-    .text-warning {
-      color: #f39c12;
-    }
-
-    .text-danger {
-      color: #e74c3c;
-    }
-
-    .footer {
-      margin-top: 20px;
-      padding-top: 8px;
-      border-top: 1px solid #ddd;
-      font-size: 8px;
-      color: #7f8c8d;
-      text-align: right;
-    }
-
-    .page-break {
-      page-break-before: always;
-    }
-
+    /* COLUMN ALIGNMENT */
     .text-right {
       text-align: right;
     }
@@ -205,75 +159,104 @@
       text-align: center;
     }
 
-    .mb-1 {
-      margin-bottom: 5px;
+    /* STATUS COLORS */
+    .status-pending {
+      color: #ffc107;
+      font-weight: bold;
     }
 
-    .mb-2 {
-      margin-bottom: 10px;
+    .status-verified {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .status-rejected {
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+    .status-expired {
+      color: #6c757d;
+      font-weight: bold;
+    }
+
+    /* EXPIRY INDICATORS */
+    .expired-badge {
+      background: #dc3545;
+      color: white;
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-size: 7pt;
+      font-weight: bold;
+      margin-left: 3px;
+    }
+
+    .soon-badge {
+      background: #ffc107;
+      color: #000;
+      padding: 1px 4px;
+      border-radius: 2px;
+      font-size: 7pt;
+      font-weight: bold;
+      margin-left: 3px;
+    }
+
+    /* FOOTER - MINIMAL */
+    .footer {
+      margin-top: 20px;
+      padding-top: 8px;
+      border-top: 1px solid #ddd;
+      text-align: center;
+      font-size: 8pt;
+      color: #666;
+    }
+
+    /* UTILITY */
+    .no-data {
+      text-align: center;
+      padding: 15px;
+      color: #999;
+      font-style: italic;
+      font-size: 9pt;
     }
   </style>
 </head>
 
 <body>
-  <!-- Header -->
+
+  <!-- HEADER -->
   <div class="header">
-    <h1>PT BANK RAKYAT INDONESIA (PERSERO) Tbk</h1>
-    <h2>KC TANJUNG TABALONG</h2>
-    <h3>LAPORAN DOKUMEN PER NASABAH</h3>
-    <p>Periode: {{ date('d/m/Y') }}</p>
+    <h1>BRI KC TANJUNG TABALONG</h1>
+    <h2>Laporan Dokumen per Nasabah</h2>
+    <h3>Sistem Arsip Digital Administrasi Kredit</h3>
   </div>
 
-  <!-- Summary -->
-  <div class="summary-grid">
-    <div class="summary-box">
-      <span class="summary-value">{{ count($nasabahData) }}</span>
-      <span class="summary-label">Total Nasabah</span>
-    </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ array_sum(array_column($nasabahData, 'total_dokumen')) }}</span>
-      <span class="summary-label">Total Dokumen</span>
-    </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ array_sum(array_column($nasabahData, 'verified')) }}</span>
-      <span class="summary-label">Terverifikasi</span>
-    </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ array_sum(array_column($nasabahData, 'pending')) }}</span>
-      <span class="summary-label">Pending</span>
-    </div>
-    <div class="summary-box">
-      <span class="summary-value">{{ array_sum(array_column($nasabahData, 'rejected')) }}</span>
-      <span class="summary-label">Ditolak</span>
-    </div>
-  </div>
-
-  <!-- Data Nasabah -->
+  <!-- NASABAH LIST -->
   @foreach ($nasabahData as $index => $nasabah)
     <div class="nasabah-card">
+      <!-- NASABAH HEADER -->
       <div class="nasabah-header">
         <div class="nasabah-name">
           {{ $index + 1 }}. {{ $nasabah['nama_nasabah'] }}
         </div>
         <div class="nasabah-info">
-          <div class="mb-1">
+          <div class="info-row">
             <strong>No. Rekening:</strong> {{ $nasabah['no_rekening'] }} |
-            <strong>No. KTP:</strong> {{ $nasabah['no_ktp'] }} |
-            <strong>Telp:</strong> {{ $nasabah['telepon'] }}
+            <strong>No. KTP:</strong> {{ $nasabah['no_ktp'] }}
           </div>
-          <div class="mb-1">
+          <div class="info-row">
             <strong>Alamat:</strong> {{ $nasabah['alamat'] }}
           </div>
           @if ($nasabah['kategori_kredit'])
-            <div>
-              <strong>Kategori Kredit:</strong> {{ $nasabah['kategori_kredit'] }}
+            <div class="info-row">
+              <strong>Kategori:</strong> {{ $nasabah['kategori_kredit'] }}
             </div>
           @endif
         </div>
       </div>
 
-      <!-- Stats -->
-      <div class="nasabah-stats">
+      <!-- STATS -->
+      <div class="stats-row">
         <span class="stat-badge stat-total">Total: {{ $nasabah['total_dokumen'] }}</span>
         <span class="stat-badge stat-pending">Pending: {{ $nasabah['pending'] }}</span>
         <span class="stat-badge stat-verified">Verified: {{ $nasabah['verified'] }}</span>
@@ -281,71 +264,70 @@
         <span class="stat-badge stat-expired">Expired: {{ $nasabah['expired'] }}</span>
       </div>
 
-      <!-- Dokumen List -->
+      <!-- DOKUMEN LIST -->
       @if ($nasabah['dokumen']->count() > 0)
-        <table>
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>Jenis Dokumen</th>
-              <th>Tgl. Dokumen</th>
-              <th>Tgl. Expired</th>
-              <th>Status</th>
-              <th>Kategori</th>
-              <th>Tgl. Upload</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($nasabah['dokumen'] as $docIndex => $doc)
-              @php
-                $expiredDate = $doc->expired_date ? \Carbon\Carbon::parse($doc->expired_date) : null;
-                $isExpired = $expiredDate ? $expiredDate->isPast() : false;
-                $isExpiringSoon = $expiredDate ? $expiredDate->diffInDays(now()) <= 30 : false;
-              @endphp
+        <div class="table-container">
+          <table>
+            <thead>
               <tr>
-                <td class="text-center">{{ $docIndex + 1 }}</td>
-                <td>{{ $doc->jenis_dokumen }}</td>
-                <td>{{ $doc->tanggal_dokumen ? \Carbon\Carbon::parse($doc->tanggal_dokumen)->format('d/m/Y') : '-' }}
-                </td>
-                <td>
-                  @if ($expiredDate)
-                    {{ $expiredDate->format('d/m/Y') }}
-                    @if ($isExpired)
-                      <span class="text-danger"> (EXPIRED)</span>
-                    @elseif($isExpiringSoon)
-                      <span class="text-warning"> (Soon)</span>
-                    @endif
-                  @else
-                    -
-                  @endif
-                </td>
-                <td class="status-{{ $doc->status }}">
-                  {{ strtoupper($doc->status) }}
-                </td>
-                <td>{{ $doc->kategori_kredit }}</td>
-                <td>{{ $doc->created_at->format('d/m/Y') }}</td>
+                <th width="30">#</th>
+                <th>Jenis Dokumen</th>
+                <th width="70">Tgl Dokumen</th>
+                <th width="80">Expired</th>
+                <th width="70">Status</th>
+                <th width="80">Tgl Upload</th>
               </tr>
-            @endforeach
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @foreach ($nasabah['dokumen'] as $docIndex => $doc)
+                @php
+                  $expiredDate = $doc->expired_date ? \Carbon\Carbon::parse($doc->expired_date) : null;
+                  $isExpired = $expiredDate ? $expiredDate->isPast() : false;
+                  $isExpiringSoon = $expiredDate ? $expiredDate->diffInDays(now()) <= 30 : false;
+                @endphp
+                <tr>
+                  <td class="text-center">{{ $docIndex + 1 }}</td>
+                  <td>{{ $doc->jenis_dokumen }}</td>
+                  <td class="text-center">
+                    {{ $doc->tanggal_dokumen ? \Carbon\Carbon::parse($doc->tanggal_dokumen)->format('d/m/Y') : '-' }}
+                  </td>
+                  <td class="text-center">
+                    @if ($expiredDate)
+                      {{ $expiredDate->format('d/m/Y') }}
+                      @if ($isExpired)
+                        <span class="expired-badge">EXP</span>
+                      @elseif($isExpiringSoon)
+                        <span class="soon-badge">SOON</span>
+                      @endif
+                    @else
+                      -
+                    @endif
+                  </td>
+                  <td class="text-center status-{{ $doc->status }}">
+                    {{ strtoupper($doc->status) }}
+                  </td>
+                  <td class="text-center">{{ $doc->created_at->format('d/m/Y') }}</td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
       @else
-        <div style="text-align: center; padding: 15px; color: #7f8c8d;">
+        <div class="no-data">
           Tidak ada dokumen untuk nasabah ini
         </div>
       @endif
     </div>
-
-    @if (($index + 1) % 2 == 0 && !$loop->last)
-      <div class="page-break"></div>
-    @endif
   @endforeach
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <div class="footer">
-    <div>Dicetak pada: {{ $tanggal_cetak }}</div>
-    <div>Oleh: Sistem Manajemen Arsip Digital BRI</div>
-    <div>Halaman <span class="page-number"></span></div>
+    <div>Dokumen ini dicetak secara otomatis dari sistem</div>
+    <div style="margin-top: 5px; color: #999; font-size: 7pt;">
+      {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
+    </div>
   </div>
+
 </body>
 
 </html>

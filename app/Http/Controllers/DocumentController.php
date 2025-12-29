@@ -7,6 +7,8 @@ use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
+
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class DocumentController extends Controller
@@ -68,11 +70,14 @@ class DocumentController extends Controller
   /**
    * Show the form for creating a new resource.
    */
-  public function create()
+  public function create(Request $request)
   {
-    return view('documents.create');
-  }
+    $nama_nasabah = $request->get('nasabah');
+    $no_rekening = $request->get('rekening');
+    $no_ktp = $request->get('ktp');
 
+    return view('documents.create', compact('nama_nasabah', 'no_rekening', 'no_ktp'));
+  }
   /**
    * Store a newly created resource in storage.
    */
@@ -90,6 +95,12 @@ class DocumentController extends Controller
       'tanggal_dokumen' => 'required|date',
       'expired_date' => 'nullable|date|after:tanggal_dokumen',
       'catatan' => 'nullable|string|max:500',
+      'tahun_pengajuan' => 'required|integer|min:2000|max:2030',
+      'tenor' => 'required|integer|min:1|max:360',
+      'nominal_kredit' => 'required|numeric|min:0',
+      'suku_bunga' => 'required|numeric|min:0|max:100',
+      'jenis_bunga' => 'required|in:flat,bertingkat',
+      'status_riwayat' => 'required|in:bersih,pernah_telat,bermasalah',
     ]);
 
     try {
@@ -117,6 +128,15 @@ class DocumentController extends Controller
         'tanggal_dokumen' => $request->tanggal_dokumen,
         'expired_date' => $request->expired_date,
         'uploaded_by' => Auth::id(),
+        'tahun_pengajuan' => $request->tahun_pengajuan,
+        'tenor' => $request->tenor,
+        'nominal_kredit' => $request->nominal_kredit,
+        'suku_bunga' => $request->suku_bunga,
+        'jenis_bunga' => $request->jenis_bunga,
+        'status_riwayat' => $request->status_riwayat,
+
+        // Auto calculate estimasi_selesai
+        'estimasi_selesai' => $request->tahun_pengajuan + ceil($request->tenor / 12),
       ]);
 
       // Log activity
@@ -166,7 +186,7 @@ class DocumentController extends Controller
     // Tidak bisa update jika status verified atau expired
     if (in_array($document->status, ['verified', 'expired'])) {
       return redirect()->route('documents.show', $document)
-        ->with('error', 'Dokumen yang sudah diverifikasi atau expired tidak dapat diubah.');
+        ->with('warning', 'Dokumen yang sudah diverifikasi atau expired tidak dapat diubah.');
     }
 
     $request->validate([
@@ -181,6 +201,12 @@ class DocumentController extends Controller
       'tanggal_dokumen' => 'required|date',
       'expired_date' => 'nullable|date|after:tanggal_dokumen',
       'catatan' => 'nullable|string|max:500',
+      'tahun_pengajuan' => 'required|integer|min:2000|max:2030',
+      'tenor' => 'required|integer|min:1|max:360',
+      'nominal_kredit' => 'required|numeric|min:0',
+      'suku_bunga' => 'required|numeric|min:0|max:100',
+      'jenis_bunga' => 'required|in:flat,bertingkat',
+      'status_riwayat' => 'required|in:bersih,pernah_telat,bermasalah',
     ]);
 
     try {
@@ -194,8 +220,15 @@ class DocumentController extends Controller
         'kategori_kredit',
         'tanggal_dokumen',
         'expired_date',
-        'catatan'
+        'catatan',
+        'tahun_pengajuan',
+        'tenor',
+        'nominal_kredit',
+        'suku_bunga',
+        'jenis_bunga',
+        'status_riwayat',
       ]);
+      $data['estimasi_selesai'] = $request->tahun_pengajuan + ceil($request->tenor / 12);
 
       // Jika dokumen rejected dan diedit, reset status ke pending
       if ($document->status === 'rejected') {
@@ -303,6 +336,10 @@ class DocumentController extends Controller
 
   public function verify(Request $request, Document $document)
   {
+    if (auth()->user()->role !== 'verifikator') {
+      abort(403, 'Hanya verifikator yang dapat memverifikasi dokumen.');
+    }
+
     $request->validate([
       'status' => 'required|in:verified,rejected',
       'catatan' => 'required_if:status,rejected|nullable|string|max:500',
@@ -317,6 +354,9 @@ class DocumentController extends Controller
         'catatan' => $request->catatan ?: $document->catatan,
       ]);
 
+      // Update cache counter untuk dashboard
+      $this->updateDashboardCounters($request->status, $oldStatus);
+
       // Log activity
       $action = $request->status == 'verified' ? 'verify' : 'reject';
       ActivityLog::log($action, "{$action} dokumen {$document->nama_nasabah} ({$document->id}) dari {$oldStatus} ke {$request->status}", Auth::id(), $document->id);
@@ -329,5 +369,13 @@ class DocumentController extends Controller
       return redirect()->back()
         ->with('error', 'Gagal memverifikasi dokumen: ' . $e->getMessage());
     }
+  }
+  /**
+   * Update dashboard counters when status changes
+   */
+  private function updateDashboardCounters($newStatus, $oldStatus)
+  {
+    // Hapus cache dashboard stats agar di-recalculate
+    \Cache::forget('dashboard_stats');
   }
 }

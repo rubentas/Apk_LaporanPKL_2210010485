@@ -220,12 +220,10 @@
         $('.alert').alert('close');
       }, 5000);
 
-      // Initialize bs-custom-file-input
       if (typeof bsCustomFileInput !== 'undefined') {
         bsCustomFileInput.init();
       }
 
-      // Initialize tooltips
       $('[data-toggle="tooltip"]').tooltip();
     });
   </script>

@@ -176,6 +176,100 @@
                 </div>
               </div>
 
+              <!-- TAMBAH SETELAH expired_date, SEBELUM document_file -->
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="tahun_pengajuan">Tahun Pengajuan <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('tahun_pengajuan') is-invalid @enderror"
+                      id="tahun_pengajuan" name="tahun_pengajuan"
+                      value="{{ old('tahun_pengajuan', $document->tahun_pengajuan) }}" min="2000" max="2030"
+                      required>
+                    @error('tahun_pengajuan')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="tenor">Tenor (Bulan) <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('tenor') is-invalid @enderror" id="tenor"
+                      name="tenor" value="{{ old('tenor', $document->tenor) }}" min="1" max="360"
+                      required>
+                    @error('tenor')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="nominal_kredit">Nominal Kredit <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('nominal_kredit') is-invalid @enderror"
+                      id="nominal_kredit" name="nominal_kredit"
+                      value="{{ old('nominal_kredit', $document->nominal_kredit) }}" required>
+                    @error('nominal_kredit')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="suku_bunga">Suku Bunga (%) <span class="text-danger">*</span></label>
+                    <input type="number" step="0.01"
+                      class="form-control @error('suku_bunga') is-invalid @enderror" id="suku_bunga" name="suku_bunga"
+                      value="{{ old('suku_bunga', $document->suku_bunga) }}" required>
+                    @error('suku_bunga')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="jenis_bunga">Jenis Bunga <span class="text-danger">*</span></label>
+                    <select class="form-control @error('jenis_bunga') is-invalid @enderror" id="jenis_bunga"
+                      name="jenis_bunga" required>
+                      <option value="">-- Pilih Jenis Bunga --</option>
+                      <option value="flat"
+                        {{ old('jenis_bunga', $document->jenis_bunga) == 'flat' ? 'selected' : '' }}>Flat</option>
+                      <option value="bertingkat"
+                        {{ old('jenis_bunga', $document->jenis_bunga) == 'bertingkat' ? 'selected' : '' }}>Bertingkat
+                      </option>
+                    </select>
+                    @error('jenis_bunga')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="status_riwayat">Status Riwayat <span class="text-danger">*</span></label>
+                    <select class="form-control @error('status_riwayat') is-invalid @enderror" id="status_riwayat"
+                      name="status_riwayat" required>
+                      <option value="">-- Pilih Status Riwayat --</option>
+                      <option value="bersih"
+                        {{ old('status_riwayat', $document->status_riwayat) == 'bersih' ? 'selected' : '' }}>Bersih
+                      </option>
+                      <option value="pernah_telat"
+                        {{ old('status_riwayat', $document->status_riwayat) == 'pernah_telat' ? 'selected' : '' }}>Pernah
+                        Telat</option>
+                      <option value="bermasalah"
+                        {{ old('status_riwayat', $document->status_riwayat) == 'bermasalah' ? 'selected' : '' }}>
+                        Bermasalah</option>
+                    </select>
+                    @error('status_riwayat')
+                      <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label for="document_file">File Dokumen</label>
                 <div class="custom-file">

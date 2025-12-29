@@ -34,6 +34,14 @@ class Document extends Model
     'uploaded_by',
     'verified_by',
     'verified_at',
+    'tahun_pengajuan',
+    'tenor',
+    'nominal_kredit',
+    'suku_bunga',
+    'jenis_bunga',
+    'estimasi_selesai',
+    'status_riwayat',
+    'keterangan_reject'
   ];
 
   protected $dates = ['tanggal_dokumen', 'expired_date', 'verified_at'];

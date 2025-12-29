@@ -7,6 +7,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AnalysisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,11 +75,18 @@ Route::middleware(['auth'])->group(function () {
     // Laporan Dokumen Per Kategori Kredit
     Route::get('/dokumen-per-kategori', [ReportController::class, 'dokumenPerKategori'])->name('dokumen-per-kategori');
     Route::get('/dokumen-per-kategori/pdf', [ReportController::class, 'dokumenPerKategoriPdf'])->name('dokumen-per-kategori.pdf');
+
+    Route::get('/kredit-akan-selesai', [ReportController::class, 'kreditAkanSelesai'])->name('kredit-akan-selesai');
+    Route::get('/kredit-akan-selesai/pdf', [ReportController::class, 'kreditAkanSelesaiPdf'])->name('kredit-akan-selesai.pdf');
   });
 
-  // User Management routes (Admin only) - Middleware tambahan untuk admin
-  Route::middleware(['admin'])->group(function () {
-    Route::resource('users', UserController::class);
+  // User Management routes (Admin only) - GANTI DI SINI
+  Route::resource('users', UserController::class);
+
+  // Analysis Routes
+  Route::prefix('analysis')->name('analysis.')->group(function () {
+    Route::get('/rekomendasi', [AnalysisController::class, 'rekomendasiNasabah'])->name('rekomendasi');
+    Route::get('/kategori', [AnalysisController::class, 'detailKategori'])->name('kategori');
   });
 });
 

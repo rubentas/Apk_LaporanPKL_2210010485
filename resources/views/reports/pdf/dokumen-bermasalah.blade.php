@@ -3,224 +3,218 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Laporan Dokumen Bermasalah - BRI</title>
+  <title>Laporan Dokumen Bermasalah - BRI KC Tanjung Tabalong</title>
   <style>
-    body {
-      font-family: 'DejaVu Sans', sans-serif;
-      font-size: 10px;
-      line-height: 1.3;
+    /* RESET & BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 9pt;
+      line-height: 1.3;
+      color: #333;
+      margin: 0;
+      padding: 15mm;
+      background: #fff;
+    }
+
+    /* HEADER - CLEAN */
     .header {
       text-align: center;
       margin-bottom: 15px;
-      border-bottom: 3px solid #dc3545;
       padding-bottom: 10px;
     }
 
     .header h1 {
-      margin: 0;
-      color: #dc3545;
-      font-size: 20px;
+      color: #0033a0;
+      font-size: 12pt;
+      font-weight: bold;
+      margin-bottom: 2px;
     }
 
     .header h2 {
-      margin: 3px 0;
-      color: #6c757d;
-      font-size: 14px;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin: 15px 0;
-    }
-
-    .summary-box {
-      text-align: center;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-
-    .summary-expired {
-      background-color: #f8d7da;
-      border-color: #f5c6cb;
-    }
-
-    .summary-rejected {
-      background-color: #fff3cd;
-      border-color: #ffeaa7;
-    }
-
-    .summary-pending {
-      background-color: #d1ecf1;
-      border-color: #bee5eb;
-    }
-
-    .summary-nik {
-      background-color: #e2d9f3;
-      border-color: #d6c8f0;
-    }
-
-    .summary-value {
-      font-size: 20px;
+      color: #dc3545;
+      font-size: 11pt;
       font-weight: bold;
-      display: block;
+      margin-bottom: 5px;
     }
 
-    .summary-expired .summary-value {
-      color: #721c24;
+    .header h3 {
+      color: #333;
+      font-size: 10pt;
+      margin-top: 8px;
     }
 
-    .summary-rejected .summary-value {
-      color: #856404;
-    }
-
-    .summary-pending .summary-value {
-      color: #0c5460;
-    }
-
-    .summary-nik .summary-value {
-      color: #4a3c6e;
-    }
-
-    .summary-label {
-      font-size: 9px;
-      text-transform: uppercase;
-      display: block;
-      margin-top: 3px;
-    }
-
+    /* SECTION - CLEAN */
     .section {
       margin: 20px 0;
       page-break-inside: avoid;
     }
 
     .section-title {
-      background-color: #f8f9fa;
       padding: 8px;
-      border-left: 4px solid;
       margin-bottom: 10px;
       font-weight: bold;
-      font-size: 12px;
+      font-size: 10pt;
+      border-left: 4px solid;
     }
 
     .section-expired {
       border-left-color: #dc3545;
+      background: #f8d7da;
+      color: #721c24;
     }
 
     .section-rejected {
       border-left-color: #ffc107;
+      background: #fff3cd;
+      color: #856404;
     }
 
     .section-pending {
       border-left-color: #17a2b8;
+      background: #d1ecf1;
+      color: #0c5460;
     }
 
     .section-nik {
       border-left-color: #6f42c1;
+      background: #e2d9f3;
+      color: #4a3c6e;
     }
 
+    /* TABLE - CLEAN */
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 5px;
-      font-size: 9px;
+      font-size: 8pt;
     }
 
     table th {
-      background-color: #343a40;
+      background: #0033a0;
       color: white;
-      padding: 6px 8px;
+      padding: 7px 6px;
+      border: 1px solid #ddd;
+      font-weight: bold;
       text-align: left;
     }
 
     table td {
-      padding: 5px 6px;
-      border-bottom: 1px solid #dee2e6;
+      padding: 6px 6px;
+      border: 1px solid #e0e0e0;
     }
 
+    table tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    /* BADGES - SIMPLE */
     .badge {
-      padding: 2px 6px;
+      padding: 3px 6px;
       border-radius: 3px;
-      font-size: 8px;
+      font-size: 8pt;
       font-weight: bold;
+      display: inline-block;
     }
 
     .badge-expired {
-      background-color: #dc3545;
+      background: #dc3545;
       color: white;
     }
 
     .badge-rejected {
-      background-color: #ffc107;
-      color: black;
+      background: #ffc107;
+      color: #000;
     }
 
     .badge-pending {
-      background-color: #17a2b8;
+      background: #17a2b8;
       color: white;
     }
 
-    .text-danger {
-      color: #dc3545;
+    /* NIK DUPLIKAT - SIMPLIFIED */
+    .nik-section {
+      background: #f8f9fa;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 4px;
+      border-left: 4px solid #6f42c1;
     }
 
-    .text-warning {
-      color: #856404;
+    .nik-title {
+      font-weight: bold;
+      color: #6f42c1;
+      margin-bottom: 8px;
+      font-size: 10pt;
     }
 
-    .text-info {
-      color: #0c5460;
+    .nik-item {
+      margin-bottom: 10px;
+      padding: 8px;
+      background: white;
+      border-radius: 3px;
+      border: 1px solid #e0e0e0;
     }
 
+    .nik-nik {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 3px;
+    }
+
+    .nik-info {
+      font-size: 8pt;
+      color: #666;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #28a745;
+      font-weight: bold;
+      font-size: 10pt;
+    }
+
+    /* FOOTER - MINIMAL */
     .footer {
-      margin-top: 30px;
+      margin-top: 20px;
       padding-top: 8px;
       border-top: 1px solid #ddd;
-      font-size: 8px;
-      color: #6c757d;
-      text-align: right;
+      text-align: center;
+      font-size: 8pt;
+      color: #666;
     }
 
-    .page-break {
-      page-break-before: always;
+    /* UTILITY */
+    .text-center {
+      text-align: center;
     }
   </style>
 </head>
 
 <body>
-  <!-- Header -->
+
+  <!-- HEADER -->
   <div class="header">
-    <h1>PT BANK RAKYAT INDONESIA (PERSERO) Tbk</h1>
-    <h2>KC TANJUNG TABALONG</h2>
-    <h3>LAPORAN DOKUMEN BERMASALAH</h3>
-    <p>Periode: {{ date('d/m/Y') }}</p>
+    <h1>BRI KC TANJUNG TABALONG</h1>
+    <h2>Laporan Dokumen Bermasalah</h2>
+    <h3>Sistem Arsip Digital Administrasi Kredit</h3>
   </div>
 
-  <!-- Summary -->
-  <div class="summary-grid">
-    <div class="summary-box summary-expired">
-      <span class="summary-value">{{ $summary['expired'] }}</span>
-      <span class="summary-label">Dokumen Expired</span>
+  @if ($summary['total'] == 0 && count($nikDuplikat) == 0)
+    <div class="empty-state">
+      ✓ TIDAK ADA DOKUMEN BERMASALAH<br>
+      <span style="font-size: 8pt; color: #666;">Semua dokumen dalam kondisi normal</span>
     </div>
-    <div class="summary-box summary-rejected">
-      <span class="summary-value">{{ $summary['rejected'] }}</span>
-      <span class="summary-label">Dokumen Ditolak</span>
-    </div>
-    <div class="summary-box summary-pending">
-      <span class="summary-value">{{ $summary['pending_lama'] }}</span>
-      <span class="summary-label">Pending >7 Hari</span>
-    </div>
-    <div class="summary-box summary-nik">
-      <span class="summary-value">{{ $summary['nik_duplikat'] }}</span>
-      <span class="summary-label">NIK Duplikat</span>
-    </div>
-  </div>
+  @endif
 
-  <!-- Dokumen Expired -->
+  <!-- DOKUMEN EXPIRED -->
   @if ($expired->count() > 0)
     <div class="section">
       <div class="section-title section-expired">
@@ -229,27 +223,25 @@
       <table>
         <thead>
           <tr>
-            <th>No.</th>
+            <th width="30">No</th>
             <th>Nasabah</th>
-            <th>No. Rekening</th>
+            <th width="80">No. Rekening</th>
             <th>Jenis Dokumen</th>
-            <th>Expired Date</th>
-            <th>Status</th>
+            <th width="70">Expired</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($expired as $doc)
             <tr>
-              <td>{{ $loop->iteration }}</td>
+              <td class="text-center">{{ $loop->iteration }}</td>
               <td>{{ $doc->nama_nasabah }}</td>
               <td>{{ $doc->no_rekening }}</td>
               <td>{{ $doc->jenis_dokumen }}</td>
-              <td>
+              <td class="text-center">
                 <span class="badge badge-expired">
                   {{ $doc->expired_date->format('d/m/Y') }}
                 </span>
               </td>
-              <td class="text-danger">{{ strtoupper($doc->status) }}</td>
             </tr>
           @endforeach
         </tbody>
@@ -257,7 +249,7 @@
     </div>
   @endif
 
-  <!-- Dokumen Rejected -->
+  <!-- DOKUMEN REJECTED -->
   @if ($rejected->count() > 0)
     <div class="section">
       <div class="section-title section-rejected">
@@ -266,25 +258,21 @@
       <table>
         <thead>
           <tr>
-            <th>No.</th>
+            <th width="30">No</th>
             <th>Nasabah</th>
-            <th>No. Rekening</th>
+            <th width="80">No. Rekening</th>
             <th>Jenis Dokumen</th>
-            <th>Alasan Penolakan</th>
-            <th>Tanggal Ditolak</th>
+            <th>Keterangan</th>
           </tr>
         </thead>
         <tbody>
           @foreach ($rejected as $doc)
             <tr>
-              <td>{{ $loop->iteration }}</td>
+              <td class="text-center">{{ $loop->iteration }}</td>
               <td>{{ $doc->nama_nasabah }}</td>
               <td>{{ $doc->no_rekening }}</td>
               <td>{{ $doc->jenis_dokumen }}</td>
-              <td class="text-warning">
-                {{ $doc->catatan ? Str::limit($doc->catatan, 40) : 'Tidak ada catatan' }}
-              </td>
-              <td>{{ $doc->verified_at ? $doc->verified_at->format('d/m/Y') : '-' }}</td>
+              <td>{{ $doc->catatan ? Str::limit($doc->catatan, 30) : '-' }}</td>
             </tr>
           @endforeach
         </tbody>
@@ -292,21 +280,21 @@
     </div>
   @endif
 
-  <!-- Pending Lama -->
+  <!-- PENDING LAMA -->
   @if ($pendingLama->count() > 0)
     <div class="section">
       <div class="section-title section-pending">
-        DOKUMEN PENDING LAMA >7 HARI ({{ $pendingLama->count() }})
+        PENDING >7 HARI ({{ $pendingLama->count() }})
       </div>
       <table>
         <thead>
           <tr>
-            <th>No.</th>
+            <th width="30">No</th>
             <th>Nasabah</th>
-            <th>No. Rekening</th>
+            <th width="80">No. Rekening</th>
             <th>Jenis Dokumen</th>
-            <th>Tanggal Upload</th>
-            <th>Lama Pending</th>
+            <th width="70">Tgl Upload</th>
+            <th width="50">Hari</th>
           </tr>
         </thead>
         <tbody>
@@ -315,13 +303,13 @@
               $daysPending = $doc->created_at->diffInDays(now());
             @endphp
             <tr>
-              <td>{{ $loop->iteration }}</td>
+              <td class="text-center">{{ $loop->iteration }}</td>
               <td>{{ $doc->nama_nasabah }}</td>
               <td>{{ $doc->no_rekening }}</td>
               <td>{{ $doc->jenis_dokumen }}</td>
-              <td>{{ $doc->created_at->format('d/m/Y') }}</td>
-              <td>
-                <span class="badge badge-pending">{{ $daysPending }} hari</span>
+              <td class="text-center">{{ $doc->created_at->format('d/m/Y') }}</td>
+              <td class="text-center">
+                <span class="badge badge-pending">{{ $daysPending }}</span>
               </td>
             </tr>
           @endforeach
@@ -330,77 +318,31 @@
     </div>
   @endif
 
-  <!-- NIK Duplikat -->
+  <!-- NIK DUPLIKAT -->
   @if (count($nikDuplikat) > 0)
-    <div class="card card-purple mt-3">
-      <div class="card-header">
-        <h3 class="card-title">
-          <i class="fas fa-exclamation-triangle mr-1"></i>
-          Data NIK KTP Duplikat ({{ count($nikDuplikat) }})
-        </h3>
+    <div class="nik-section">
+      <div class="nik-title">
+        NIK DUPLIKAT ({{ count($nikDuplikat) }})
       </div>
-      <div class="card-body">
-        <!-- Keterangan -->
-        <div class="alert alert-info">
-          <i class="fas fa-info-circle mr-1"></i>
-          <strong>Keterangan:</strong> NIK KTP yang terdaftar untuk beberapa nama berbeda.
-          Ini adalah <strong>potensi masalah data integrity</strong> yang perlu diverifikasi.
-          Meskipun NIK duplikat, dokumen-dokumen ini mungkin dalam status baik (tidak expired/rejected).
-        </div>
-
-        @foreach ($nikDuplikat as $index => $data)
-          <div class="alert alert-warning">
-            <h5>
-              <i class="fas fa-id-card mr-1"></i>
-              NIK: <strong>{{ $data['nik'] }}</strong>
-              <span class="badge badge-danger ml-2">{{ $data['count'] }} dokumen</span>
-            </h5>
-            <p class="mb-1">
-              <strong>Nama yang terdaftar:</strong> {{ implode(', ', $data['names']) }}
-            </p>
-            <p class="mb-1">
-              <strong>Status dokumen:</strong>
-              @php
-                $statusCounts = [];
-                foreach ($data['documents'] as $doc) {
-                    $statusCounts[$doc->status] = ($statusCounts[$doc->status] ?? 0) + 1;
-                }
-                $statusText = [];
-                foreach ($statusCounts as $status => $count) {
-                    $statusText[] = "$count " . ucfirst($status);
-                }
-              @endphp
-              {{ implode(', ', $statusText) }}
-            </p>
-            <p class="mb-2">
-              <strong>Kemungkinan:</strong> Data duplikat atau kesalahan input NIK
-            </p>
-            <div class="mt-2">
-              <a href="{{ route('reports.per-nasabah') }}?search_nasabah={{ $data['names'][0] }}"
-                class="btn btn-xs btn-info">
-                <i class="fas fa-search"></i> Cek Data
-              </a>
-            </div>
+      @foreach ($nikDuplikat as $index => $data)
+        <div class="nik-item">
+          <div class="nik-nik">NIK: {{ $data['nik'] }} • {{ $data['count'] }} dokumen</div>
+          <div class="nik-info">
+            <strong>Nama:</strong> {{ implode(', ', $data['names']) }}
           </div>
-        @endforeach
-      </div>
+        </div>
+      @endforeach
     </div>
   @endif
 
-  <!-- Empty State -->
-  @if ($summary['total'] == 0 && count($nikDuplikat) == 0)
-    <div style="text-align: center; padding: 40px; color: #28a745;">
-      <h4>TIDAK ADA DOKUMEN BERMASALAH</h4>
-      <p>Semua dokumen dalam kondisi baik</p>
-    </div>
-  @endif
-
-  <!-- Footer -->
+  <!-- FOOTER -->
   <div class="footer">
-    <div>Dicetak pada: {{ $tanggal_cetak }}</div>
-    <div>Oleh: Sistem Manajemen Arsip Digital BRI</div>
-    <div>Halaman 1/1</div>
+    <div>Dokumen ini dicetak secara otomatis dari sistem</div>
+    <div style="margin-top: 5px; color: #999; font-size: 7pt;">
+      {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
+    </div>
   </div>
+
 </body>
 
 </html>

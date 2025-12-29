@@ -6,290 +6,290 @@
   <title>Laporan Daftar Dokumen - BRI KC Tanjung Tabalong</title>
 
   <style>
-    /* CSS untuk PDF - LANDSCAPE MODE */
-    body {
-      font-family: 'DejaVu Sans', sans-serif;
-      font-size: 10px;
-      line-height: 1.3;
+    /* RESET & BASE STYLES */
+    * {
       margin: 0;
-      padding: 10px;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 9pt;
+      line-height: 1.4;
+      color: #333;
+      margin: 0;
+      padding: 15mm;
+      background: #fff;
+    }
+
+    /* HEADER */
     .header {
       text-align: center;
       margin-bottom: 15px;
-      border-bottom: 2px solid #0033a0;
       padding-bottom: 8px;
     }
 
-    .header h1 {
+    .bank-name {
       color: #0033a0;
-      margin: 0;
-      font-size: 16px;
+      font-size: 12pt;
+      font-weight: bold;
+      margin-bottom: 2px;
     }
 
-    .header h2 {
+    .branch-name {
+      color: #0033a0;
+      font-size: 11pt;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .report-title {
       color: #333;
-      margin: 3px 0;
-      font-size: 13px;
+      font-size: 10pt;
+      font-weight: bold;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #eee;
     }
 
-    .header h3 {
+    .system-name {
       color: #666;
-      margin: 3px 0;
-      font-size: 11px;
+      font-size: 8pt;
+      margin-top: 2px;
     }
 
-    .info-box {
-      background-color: #f8f9fa;
-      border: 1px solid #dee2e6;
+    /* SUMMARY BOX - CLEAN */
+    .summary-box {
+      background: #f8f9fa;
+      padding: 6px 8px;
+      margin: 10px 0 15px 0;
       border-radius: 3px;
-      padding: 8px;
-      margin-bottom: 12px;
-      font-size: 9px;
+      border-left: 3px solid #0033a0;
+      font-size: 8pt;
     }
 
-    .table {
+    .summary-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-docs {
+      font-weight: bold;
+      color: #0033a0;
+    }
+
+    /* TABLE */
+    .table-container {
+      margin-top: 5px;
+    }
+
+    table {
       width: 100%;
       border-collapse: collapse;
-      table-layout: fixed;
-      /* PENTING: biar kolom tidak melebar */
-      margin-top: 8px;
+      font-size: 8pt;
     }
 
-    /* ATUR LEBAR KOLOM SECARA PROPORSI */
-    .table th:nth-child(1),
-    .table td:nth-child(1) {
-      width: 3%;
-    }
-
-    /* No */
-
-    .table th:nth-child(2),
-    .table td:nth-child(2) {
-      width: 5%;
-    }
-
-    /* ID Dokumen */
-
-    .table th:nth-child(3),
-    .table td:nth-child(3) {
-      width: 16%;
-    }
-
-    /* Nama Nasabah */
-
-    .table th:nth-child(4),
-    .table td:nth-child(4) {
-      width: 10%;
-    }
-
-    /* No Rekening */
-
-    .table th:nth-child(5),
-    .table td:nth-child(5) {
-      width: 10%;
-    }
-
-    /* Jenis Dokumen */
-
-    .table th:nth-child(6),
-    .table td:nth-child(6) {
-      width: 16%;
-    }
-
-    /* Kategori Kredit */
-
-    .table th:nth-child(7),
-    .table td:nth-child(7) {
-      width: 8%;
-    }
-
-    /* Status */
-
-    .table th:nth-child(8),
-    .table td:nth-child(8) {
-      width: 10%;
-    }
-
-    /* Tgl. Upload */
-
-    .table th:nth-child(9),
-    .table td:nth-child(9) {
-      width: 12%;
-    }
-
-    /* Expired Date */
-
-    .table th {
-      background-color: #0033a0;
+    thead th {
+      background: #0033a0;
       color: white;
-      padding: 5px 3px;
-      text-align: left;
+      padding: 6px 4px;
       border: 1px solid #ddd;
-      font-size: 9px;
       font-weight: bold;
+      text-align: left;
+      font-size: 8pt;
     }
 
-    .table td {
-      padding: 4px 3px;
-      border: 1px solid #ddd;
-      font-size: 8px;
-      word-break: break-word;
-      /* Potong kata panjang */
-      overflow-wrap: break-word;
-      /* Bungkus teks */
+    tbody td {
+      padding: 5px 4px;
+      border: 1px solid #e0e0e0;
       vertical-align: top;
     }
 
-    .table tr:nth-child(even) {
-      background-color: #f9f9f9;
+    tbody tr:nth-child(even) {
+      background: #fafafa;
     }
 
-    .status-badge {
+    /* COLUMN WIDTHS */
+    .col-no {
+      width: 25px;
+      text-align: center;
+    }
+
+    .col-id {
+      width: 55px;
+    }
+
+    .col-nama {
+      width: 110px;
+    }
+
+    .col-rekening {
+      width: 75px;
+    }
+
+    .col-jenis {
+      width: 75px;
+    }
+
+    .col-kategori {
+      width: 85px;
+    }
+
+    .col-status {
+      width: 55px;
+    }
+
+    .col-tanggal {
+      width: 65px;
+    }
+
+    .col-expired {
+      width: 65px;
+    }
+
+    /* STATUS BADGES */
+    .status {
       display: inline-block;
-      padding: 1px 4px;
+      padding: 2px 4px;
       border-radius: 2px;
-      font-size: 8px;
+      font-size: 7pt;
       font-weight: bold;
-      white-space: nowrap;
-    }
-
-    .status-pending {
-      background-color: #ffc107;
-      color: #000;
+      text-align: center;
+      min-width: 50px;
     }
 
     .status-verified {
-      background-color: #28a745;
+      background: #28a745;
       color: white;
     }
 
+    .status-pending {
+      background: #ffc107;
+      color: #000;
+    }
+
     .status-rejected {
-      background-color: #dc3545;
+      background: #dc3545;
       color: white;
     }
 
     .status-expired {
-      background-color: #6c757d;
+      background: #6c757d;
       color: white;
     }
 
+    /* FOOTER - MINIMAL */
     .footer {
       margin-top: 20px;
       padding-top: 8px;
-      border-top: 1px solid #ddd;
+      border-top: 1px solid #eee;
       text-align: center;
-      font-size: 8px;
-      color: #666;
+      font-size: 7pt;
+      color: #777;
+      line-height: 1.3;
     }
 
-    .filter-info {
-      font-size: 9px;
-      margin-bottom: 10px;
+    /* UTILITY */
+    .text-center {
+      text-align: center;
     }
 
-    /* Untuk teks kecil dalam cell */
-    small {
-      font-size: 7px;
-      color: #666;
+    .small {
+      font-size: 7pt;
+      display: block;
+      color: #888;
+    }
+
+    .highlight {
+      background: #fffacd;
+      padding: 1px 3px;
+      border-radius: 2px;
     }
   </style>
 </head>
 
 <body>
-  <!-- Header -->
+
+  <!-- HEADER -->
   <div class="header">
-    <h1>PT BANK RAKYAT INDONESIA (PERSERO) Tbk.</h1>
-    <h2>KC TANJUNG TABALONG</h2>
-    <h3>SISTEM ARSIP DIGITAL ADMINISTRASI KREDIT</h3>
-    <h3>LAPORAN DAFTAR DOKUMEN</h3>
+    <div class="bank-name">BANK RAKYAT INDONESIA</div>
+    <div class="branch-name">KC TANJUNG TABALONG</div>
+    <div class="report-title">LAPORAN DAFTAR DOKUMEN</div>
+    <div class="system-name">Sistem Arsip Digital Administrasi Kredit</div>
   </div>
 
-  <!-- Info Box -->
-  <div class="info-box">
-    <table width="100%">
-      <tr>
-        <td width="50%">
-          <strong>Tanggal Cetak:</strong> {{ $tanggal_cetak }}<br>
-          <strong>Jumlah Dokumen:</strong> {{ $documents->count() }}
+  <!-- SUMMARY BOX -->
+  <div class="summary-box">
+    <div class="summary-grid">
+      <div class="total-docs">Total: {{ $documents->count() }} dokumen</div>
+      @if (isset($is_selected_report) && $is_selected_report)
+        <div style="color: #dc3545; font-weight: bold;">• Dokumen Terpilih</div>
+      @endif
+    </div>
+  </div>
 
-          @if (isset($is_selected_report) && $is_selected_report)
-            <br><strong>Tipe Laporan:</strong> <span style="color: #0033a0;">Dokumen Terpilih</span>
-          @endif
-        </td>
-        <td width="50%">
-          @if (isset($filter['status']) && $filter['status'])
-            <strong>Status Filter:</strong> {{ ucfirst($filter['status']) }}<br>
-          @endif
-          @if (isset($filter['kategori_kredit']) && $filter['kategori_kredit'])
-            <strong>Kategori Filter:</strong> {{ $filter['kategori_kredit'] }}
-          @endif
-        </td>
-      </tr>
+  <!-- TABLE -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-no">No</th>
+          <th class="col-id">ID</th>
+          <th class="col-nama">Nama Nasabah</th>
+          <th class="col-rekening">No Rekening</th>
+          <th class="col-jenis">Jenis Dokumen</th>
+          <th class="col-kategori">Kategori</th>
+          <th class="col-status">Status</th>
+          <th class="col-tanggal">Tgl. Upload</th>
+          <th class="col-expired">Expired</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($documents as $document)
+          <tr>
+            <td class="col-no text-center">{{ $loop->iteration }}</td>
+            <td class="col-id">{{ $document->id }}</td>
+            <td class="col-nama">
+              {{ $document->nama_nasabah }}
+              <span class="small">KTP: {{ $document->no_ktp }}</span>
+            </td>
+            <td class="col-rekening">{{ $document->no_rekening }}</td>
+            <td class="col-jenis">{{ $document->jenis_dokumen }}</td>
+            <td class="col-kategori">{{ $document->kategori_kredit }}</td>
+            <td class="col-status text-center">
+              @php
+                $statusClass = 'status-' . $document->status;
+                $statusLabel = ucfirst($document->status);
+              @endphp
+              <span class="status {{ $statusClass }}">{{ $statusLabel }}</span>
+            </td>
+            <td class="col-tanggal">{{ $document->created_at->format('d/m/Y') }}</td>
+            <td class="col-expired">
+              @if ($document->expired_date)
+                {{ $document->expired_date->format('d/m/Y') }}
+                @if ($document->expired_date->isPast())
+                  <span class="status status-expired">EXP</span>
+                @endif
+              @else
+                -
+              @endif
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
     </table>
   </div>
 
-  <!-- Tabel Data -->
-  <table class="table">
-    <thead>
-      <tr>
-        <th width="30">No</th>
-        <th width="100">ID Dokumen</th>
-        <th>Nama Nasabah</th>
-        <th width="100">No Rekening</th>
-        <th width="90">Jenis Dokumen</th>
-        <th width="120">Kategori Kredit</th>
-        <th width="70">Status</th>
-        <th width="80">Tgl. Upload</th>
-        <th width="80">Expired Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($documents as $index => $document)
-        <tr>
-          <td align="center">{{ $loop->iteration }}</td>
-          <td align="center">{{ $document->id }}</td>
-          <td>{{ $document->nama_nasabah }}<br>
-            <small>KTP: {{ $document->no_ktp }}</small>
-          </td>
-          <td>{{ $document->no_rekening }}</td>
-          <td>{{ $document->jenis_dokumen }}</td>
-          <td>{{ $document->kategori_kredit }}</td>
-          <td>
-            @php
-              $statusClass = 'status-' . $document->status;
-              $statusLabel = ucfirst($document->status);
-            @endphp
-            <span class="status-badge {{ $statusClass }}">{{ $statusLabel }}</span>
-          </td>
-          <td>{{ $document->created_at->format('d/m/Y') }}</td>
-          <td>
-            @if ($document->expired_date)
-              {{ $document->expired_date->format('d/m/Y') }}
-              @if ($document->expired_date->isPast())
-                <br><small class="status-badge status-expired">EXPIRED</small>
-              @endif
-            @else
-              -
-            @endif
-          </td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
-
-  <!-- Footer -->
+  <!-- FOOTER -->
   <div class="footer">
-    <p>
-      Laporan ini dibuat secara otomatis oleh Sistem Arsip Digital Administrasi Kredit<br>
-      PT Bank Rakyat Indonesia (Persero) Tbk. KC Tanjung Tabalong
-    </p>
-    <p>
-      Jl. A. Yani No. 123, Tanjung, Tabalong - Kalimantan Selatan<br>
-      Telp: (0526) 123456 | Email: kctanjungtabalong@bri.co.id
-    </p>
+    <div>Dokumen ini dicetak secara otomatis dari sistem</div>
+    <div style="margin-top: 5px; color: #999; font-size: 6.5pt;">
+      {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
+    </div>
   </div>
+
 </body>
 
 </html>
