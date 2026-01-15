@@ -24,7 +24,7 @@
                 Role: <strong class="text-white">{{ Auth::user()->isAdmin() ? 'Administrator' : 'Verifikator' }}</strong>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
                 <i class="far fa-clock mr-1"></i>
-                {{ now()->format('d F Y, H:i') }} WIB
+                {{ now()->format('d F Y, H:i') }} WITA
               </p>
             </div>
             <div class="col-md-4 text-right">

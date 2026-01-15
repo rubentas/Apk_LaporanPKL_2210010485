@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
 
 class ActivityLog extends Model
 {
@@ -28,19 +30,20 @@ class ActivityLog extends Model
     return $this->belongsTo(Document::class);
   }
 
-  // ✅ TAMBAHKAN METHOD INI:
+
   public static function log($action, $description, $userId = null, $documentId = null)
   {
-    // Gunakan helper auth() dengan pengecekan yang aman
-    $auth = app('auth');
+    if ($userId === null && Auth::check()) {
+      $userId = Auth::id();
+    }
 
     return self::create([
-      'user_id' => $userId ?? ($auth->check() ? $auth->id() : null),
+      'user_id' => $userId, // ✅ NULL kalau login gagal
       'document_id' => $documentId,
       'action' => $action,
       'description' => $description,
-      'ip_address' => request()->ip() ?? '127.0.0.1',
-      'user_agent' => request()->userAgent() ?? 'CLI',
+      'ip_address' => request()->ip(),
+      'user_agent' => request()->userAgent(),
     ]);
   }
 }

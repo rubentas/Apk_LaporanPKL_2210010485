@@ -25,14 +25,18 @@ class AuthController extends Controller
     if (Auth::attempt($credentials)) {
       $request->session()->regenerate();
 
-      // Log login activity
-      ActivityLog::log('login', "User " . Auth::user()->name . " login", Auth::id());
+      ActivityLog::log(
+        'login',
+        "User " . Auth::user()->name . " login"
+      );
 
       return redirect()->intended('/dashboard');
     }
 
-    // Log failed login attempt
-    ActivityLog::log('login_failed', "Failed login attempt for email: {$request->email}");
+    ActivityLog::log(
+      'login_failed',
+      "Failed login attempt: {$request->email}"
+    );
 
     return back()->withErrors([
       'email' => 'Email atau password salah.',
@@ -41,7 +45,6 @@ class AuthController extends Controller
 
   public function logout(Request $request)
   {
-    // Log logout activity BEFORE logout
     if (Auth::check()) {
       ActivityLog::log('logout', "User " . Auth::user()->name . " logout", Auth::id());
     }
