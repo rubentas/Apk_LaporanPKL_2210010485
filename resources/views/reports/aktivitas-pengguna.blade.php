@@ -9,6 +9,52 @@
   <li class="breadcrumb-item active">Aktivitas Pengguna</li>
 @endsection
 
+@section('styles')
+  <style>
+    /* Fix pagination styling */
+    .pagination {
+      margin: 0;
+    }
+
+    .pagination .page-link {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      border: 1px solid #dee2e6;
+      color: #007bff;
+    }
+
+    .pagination .page-item.active .page-link {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+
+    .pagination .page-item.disabled .page-link {
+      color: #6c757d;
+      pointer-events: none;
+      background-color: #fff;
+      border-color: #dee2e6;
+    }
+
+    .pagination .page-link:hover {
+      color: #0056b3;
+      background-color: #e9ecef;
+      border-color: #dee2e6;
+    }
+
+    /* Remove any custom SVG/icon styling that might be causing issues */
+    .pagination svg {
+      display: none;
+    }
+
+    .pagination .page-link::before,
+    .pagination .page-link::after {
+      content: none;
+    }
+  </style>
+@endsection
+
 @section('content')
   <div class="container-fluid">
     <!-- Filter Card -->
@@ -255,7 +301,7 @@
             </table>
           </div>
           <div class="card-footer">
-            <div class="row">
+            <div class="row align-items-center">
               <div class="col-md-6">
                 <small class="text-muted">
                   Menampilkan {{ $activities->firstItem() }} - {{ $activities->lastItem() }} dari
@@ -264,7 +310,7 @@
               </div>
               <div class="col-md-6">
                 <div class="float-right">
-                  {{ $activities->appends(request()->except('page'))->links() }}
+                  {{ $activities->appends(request()->except('page'))->links('pagination::bootstrap-4') }}
                 </div>
               </div>
             </div>

@@ -293,7 +293,7 @@
             </a>
 
             @if (Auth::user()->isAdmin())
-              <a href="#" class="list-group-item list-group-item-action">
+              <a href="{{ route('users.index') }}" class="list-group-item list-group-item-action">
                 <div class="d-flex align-items-center">
                   <div class="icon-wrapper bg-warning text-white rounded-circle mr-3"
                     style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
