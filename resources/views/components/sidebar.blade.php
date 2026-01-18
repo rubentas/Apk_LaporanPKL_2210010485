@@ -201,7 +201,7 @@
           <a href="#" class="nav-link {{ request()->routeIs('settings.*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-cog"></i>
             <p>
-              Settings
+              Pengaturan
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
@@ -210,14 +210,14 @@
               <a href="{{ route('settings.profile') }}"
                 class="nav-link {{ request()->routeIs('settings.profile') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon text-sm"></i>
-                <p>Profile</p>
+                <p>Profil</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ route('settings.about') }}"
                 class="nav-link {{ request()->routeIs('settings.about') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon text-sm"></i>
-                <p>About System</p>
+                <p>Tentang Sistem</p>
               </a>
             </li>
           </ul>
@@ -252,8 +252,8 @@
 @push('styles')
   <style>
     /* ============================================
-                       CUSTOM SIDEBAR STYLES (Compatible with AdminLTE)
-                       ============================================ */
+                         CUSTOM SIDEBAR STYLES (Compatible with AdminLTE)
+                         ============================================ */
 
     /* Logo Container - Simple Center */
     .text-center.py-2 {
@@ -389,8 +389,8 @@
     }
 
     /* ============================================
-                       RESPONSIVE BREAKPOINTS
-                       ============================================ */
+                         RESPONSIVE BREAKPOINTS
+                         ============================================ */
 
     /* Tablet & Mobile */
     @media (max-width: 991.98px) {

@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>Laporan Daftar Dokumen - BRI KC Tanjung Tabalong</title>
-
   <style>
     /* RESET & BASE STYLES */
     * {
@@ -23,40 +22,78 @@
       background: #fff;
     }
 
-    /* HEADER */
-    .header {
-      text-align: center;
+    /* ============================================
+       HEADER RESMI BRI - DIUPDATE
+       ============================================ */
+    .official-header {
       margin-bottom: 15px;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #000;
+      position: relative;
+      text-align: center;
+      /* Center align untuk seluruh header */
+    }
+
+    .logo-container {
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .logo-bri {
+      height: 70px;
+      /* Tinggi logo */
+      margin: 0 auto;
+      /* Center logo */
+      display: block;
+    }
+
+    .bank-info {
+      margin-top: 5px;
     }
 
     .bank-name {
-      color: #0033a0;
-      font-size: 12pt;
       font-weight: bold;
-      margin-bottom: 2px;
+      font-size: 9pt;
+      line-height: 1.2;
+      margin-bottom: 1px;
+      color: #000;
     }
 
-    .branch-name {
-      color: #0033a0;
-      font-size: 11pt;
-      font-weight: bold;
-      margin-bottom: 5px;
+    .bank-address {
+      font-size: 7pt;
+      line-height: 1.3;
+      color: #333;
+      margin-top: 3px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .header-line {
+      border-bottom: 1px solid #000;
+      margin: 5px auto 0 auto;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* JUDUL LAPORAN */
+    .report-title-section {
+      text-align: center;
+      margin: 15px 0 20px 0;
     }
 
     .report-title {
-      color: #333;
-      font-size: 10pt;
+      font-size: 12pt;
       font-weight: bold;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid #eee;
+      text-decoration: underline;
+      margin-bottom: 5px;
+      color: #000;
     }
 
-    .system-name {
-      color: #666;
-      font-size: 8pt;
-      margin-top: 2px;
+    .report-subtitle {
+      font-size: 9pt;
+      color: #333;
+      margin-top: 3px;
     }
 
     /* SUMMARY BOX - CLEAN */
@@ -207,17 +244,38 @@
       padding: 1px 3px;
       border-radius: 2px;
     }
+
+    /* BASE64 LOGO FALLBACK */
+    .logo-fallback {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="bank-name">BANK RAKYAT INDONESIA</div>
-    <div class="branch-name">KC TANJUNG TABALONG</div>
+  <!-- HEADER RESMI BRI DENGAN LOGO -->
+  <div class="official-header">
+    <div class="logo-container">
+      <!-- Logo dari path yang kamu berikan -->
+      <img src="{{ public_path('adminlte/dist/img/LogoBankBRI.png') }}" alt="Logo BRI" class="logo-bri">
+    </div>
+
+    <div class="bank-info">
+      <div class="bank-name">PT. BANK RAKYAT INDONESIA (PERSERO) Tbk</div>
+      <div class="bank-name">KANTOR CABANG TANJUNG TABALONG</div>
+      <div class="header-line"></div>
+      <div class="bank-address">
+        Jalan Putri Zaleha No.2 RT.003, Tanjung, Tabalong, Kalimantan Selatan 71571<br>
+        Telepon: (0526) 2021030 • Email: bri.tanjungtabalong@bri.co.id
+      </div>
+    </div>
+  </div>
+
+  <!-- JUDUL LAPORAN -->
+  <div class="report-title-section">
     <div class="report-title">LAPORAN DAFTAR DOKUMEN</div>
-    <div class="system-name">Sistem Arsip Digital Administrasi Kredit</div>
+    <div class="report-subtitle">Sistem Arsip Digital Administrasi Kredit</div>
   </div>
 
   <!-- SUMMARY BOX -->

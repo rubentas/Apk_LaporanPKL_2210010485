@@ -423,7 +423,7 @@ class ReportController extends Controller
     ];
 
     $pdf = Pdf::loadView('reports.pdf.aktivitas-pengguna', $data)
-      ->setPaper('a4', 'landscape');
+      ->setPaper('a4', 'portrait');
 
     if ($request->has('preview') && $request->preview == 1) {
       return $pdf->stream('laporan-aktivitas-pengguna-' . date('Y-m-d') . '.pdf');

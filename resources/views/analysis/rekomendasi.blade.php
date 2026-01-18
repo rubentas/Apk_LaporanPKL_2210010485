@@ -91,7 +91,7 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr class="bg-light">
-                    <th>#</th>
+                    <th>No</th>
                     <th>Nama Nasabah</th>
                     <th>No Rekening</th>
                     <th>No KTP</th>

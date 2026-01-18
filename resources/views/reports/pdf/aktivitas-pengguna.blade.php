@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Laporan Aktivitas - BRI KC Tanjung Tabalong</title>
   <style>
-    /* RESET & BASE */
+    /* RESET & BASE STYLES */
     * {
       margin: 0;
       padding: 0;
@@ -15,65 +15,82 @@
     body {
       font-family: 'Arial', sans-serif;
       font-size: 9pt;
-      line-height: 1.3;
+      line-height: 1.4;
       color: #333;
       margin: 0;
       padding: 15mm;
       background: #fff;
     }
 
-    /* HEADER - CLEAN */
-    .header {
-      text-align: center;
+    /* ============================================
+       HEADER RESMI BRI - SAMA DENGAN DOKUMEN
+       ============================================ */
+    .official-header {
       margin-bottom: 15px;
       padding-bottom: 10px;
+      border-bottom: 3px solid #000;
+      position: relative;
+      text-align: center;
     }
 
-    .header h1 {
-      color: #0033a0;
+    .logo-container {
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .logo-bri {
+      height: 70px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .bank-info {
+      margin-top: 5px;
+    }
+
+    .bank-name {
+      font-weight: bold;
+      font-size: 9pt;
+      line-height: 1.2;
+      margin-bottom: 1px;
+      color: #000;
+    }
+
+    .bank-address {
+      font-size: 7pt;
+      line-height: 1.3;
+      color: #333;
+      margin-top: 3px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .header-line {
+      border-bottom: 1px solid #000;
+      margin: 5px auto 0 auto;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* JUDUL LAPORAN */
+    .report-title-section {
+      text-align: center;
+      margin: 15px 0 20px 0;
+    }
+
+    .report-title {
       font-size: 12pt;
       font-weight: bold;
-      margin-bottom: 2px;
-    }
-
-    .header h2 {
-      color: #0033a0;
-      font-size: 11pt;
-      font-weight: bold;
+      text-decoration: underline;
       margin-bottom: 5px;
+      color: #000;
     }
 
-    .header h3 {
-      color: #333;
-      font-size: 10pt;
-      margin-top: 8px;
-    }
-
-    /* SUMMARY - SIMPLE */
-    .summary-box {
-      background: #f8f9fa;
-      padding: 10px;
-      margin: 10px 0 15px 0;
-      border-radius: 4px;
-      border-left: 4px solid #0033a0;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 4px;
+    .report-subtitle {
       font-size: 9pt;
-    }
-
-    .summary-label {
-      font-weight: bold;
-      color: #0033a0;
-      min-width: 100px;
-    }
-
-    .summary-value {
       color: #333;
-      font-weight: bold;
+      margin-top: 3px;
     }
 
     /* TABLE - CLEAN */
@@ -88,7 +105,7 @@
       font-size: 8pt;
     }
 
-    table th {
+    thead th {
       background: #0033a0;
       color: white;
       padding: 8px 6px;
@@ -97,35 +114,38 @@
       text-align: left;
     }
 
-    table td {
+    tbody td {
       padding: 7px 6px;
       border: 1px solid #e0e0e0;
       vertical-align: top;
     }
 
-    table tr:nth-child(even) {
+    tbody tr:nth-child(even) {
       background: #f9f9f9;
     }
 
-    /* COLUMN WIDTHS */
+    /* COLUMN WIDTHS - PORTRAIT LAYOUT */
     .col-no {
       width: 30px;
+      text-align: center;
     }
 
     .col-user {
-      width: 100px;
+      width: 120px;
     }
 
     .col-action {
       width: 70px;
+      text-align: center;
     }
 
     .col-description {
-      width: auto;
+      min-width: 200px;
     }
 
     .col-date {
-      width: 80px;
+      width: 90px;
+      text-align: center;
     }
 
     /* ACTION BADGES */
@@ -178,10 +198,11 @@
     .footer {
       margin-top: 20px;
       padding-top: 8px;
-      border-top: 1px solid #ddd;
+      border-top: 1px solid #eee;
       text-align: center;
-      font-size: 8pt;
-      color: #666;
+      font-size: 7pt;
+      color: #777;
+      line-height: 1.3;
     }
 
     /* UTILITY */
@@ -192,76 +213,34 @@
     .small {
       font-size: 7pt;
       color: #777;
+      display: block;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <div class="header">
-    <h1>BRI KC TANJUNG TABALONG</h1>
-    <h2>Laporan Aktivitas Pengguna</h2>
-    <h3>Sistem Arsip Digital Administrasi Kredit</h3>
+  <!-- HEADER RESMI BRI DENGAN LOGO -->
+  <div class="official-header">
+    <div class="logo-container">
+      <img src="{{ public_path('adminlte/dist/img/LogoBankBRI.png') }}" alt="Logo BRI" class="logo-bri">
+    </div>
+
+    <div class="bank-info">
+      <div class="bank-name">PT. BANK RAKYAT INDONESIA (PERSERO) Tbk</div>
+      <div class="bank-name">KANTOR CABANG TANJUNG TABALONG</div>
+      <div class="header-line"></div>
+      <div class="bank-address">
+        Jalan Putri Zaleha No.2 RT.003, Tanjung, Tabalong, Kalimantan Selatan 71571<br>
+        Telepon: (0526) 2021030 • Email: bri.tanjungtabalong@bri.co.id
+      </div>
+    </div>
   </div>
 
-  <!-- ACTIVITY SUMMARY -->
-  <div class="summary-box">
-    @php
-      $actionCounts = [
-          'upload' => 0,
-          'download' => 0,
-          'verify' => 0,
-          'reject' => 0,
-          'login' => 0,
-          'edit' => 0,
-          'delete' => 0,
-      ];
-
-      foreach ($activities as $activity) {
-          $action = $activity->action;
-          if (isset($actionCounts[$action])) {
-              $actionCounts[$action]++;
-          }
-      }
-
-      $totalActivities = count($activities);
-    @endphp
-
-    <div class="summary-row">
-      <span class="summary-label">Total Aktivitas:</span>
-      <span class="summary-value">{{ $totalActivities }}</span>
-    </div>
-    @if ($actionCounts['upload'] > 0)
-      <div class="summary-row">
-        <span class="summary-label">Upload:</span>
-        <span class="summary-value">{{ $actionCounts['upload'] }}</span>
-      </div>
-    @endif
-    @if ($actionCounts['download'] > 0)
-      <div class="summary-row">
-        <span class="summary-label">Download:</span>
-        <span class="summary-value">{{ $actionCounts['download'] }}</span>
-      </div>
-    @endif
-    @if ($actionCounts['verify'] > 0)
-      <div class="summary-row">
-        <span class="summary-label">Verifikasi:</span>
-        <span class="summary-value">{{ $actionCounts['verify'] }}</span>
-      </div>
-    @endif
-    @if ($actionCounts['reject'] > 0)
-      <div class="summary-row">
-        <span class="summary-label">Penolakan:</span>
-        <span class="summary-value">{{ $actionCounts['reject'] }}</span>
-      </div>
-    @endif
-    @if ($actionCounts['login'] > 0)
-      <div class="summary-row">
-        <span class="summary-label">Login:</span>
-        <span class="summary-value">{{ $actionCounts['login'] }}</span>
-      </div>
-    @endif
+  <!-- JUDUL LAPORAN -->
+  <div class="report-title-section">
+    <div class="report-title">LAPORAN AKTIVITAS PENGGUNA</div>
+    <div class="report-subtitle">Sistem Arsip Digital Administrasi Kredit</div>
   </div>
 
   <!-- ACTIVITY LIST -->
@@ -269,7 +248,7 @@
     <table>
       <thead>
         <tr>
-          <th class="col-no text-center">No</th>
+          <th class="col-no">No</th>
           <th class="col-user">Pengguna</th>
           <th class="col-action">Aksi</th>
           <th class="col-description">Deskripsi</th>
@@ -277,7 +256,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($activities as $index => $activity)
+        @foreach ($activities as $activity)
           @php
             $badgeClass = 'badge-' . $activity->action;
           @endphp
@@ -286,10 +265,10 @@
             <td>
               {{ $activity->user->name ?? 'System' }}
               @if ($activity->user)
-                <br><span class="small">{{ $activity->user->email ?? '' }}</span>
+                <span class="small">{{ $activity->user->email ?? '' }}</span>
               @endif
             </td>
-            <td class="text-center">
+            <td class="col-action">
               <span class="badge {{ $badgeClass }}">
                 {{ strtoupper($activity->action) }}
               </span>
@@ -297,12 +276,12 @@
             <td>
               {{ $activity->description }}
               @if ($activity->document)
-                <br><span class="small">Dokumen: {{ $activity->document->nama_nasabah ?? '' }} (ID:
+                <span class="small">Dokumen: {{ $activity->document->nama_nasabah ?? '' }} (ID:
                   {{ $activity->document_id }})</span>
               @endif
             </td>
-            <td class="text-center">
-              {{ $activity->created_at->format('d/m/Y') }}<br>
+            <td class="col-date">
+              {{ $activity->created_at->format('d/m/Y') }}
               <span class="small">{{ $activity->created_at->format('H:i') }}</span>
             </td>
           </tr>
@@ -314,7 +293,7 @@
   <!-- FOOTER -->
   <div class="footer">
     <div>Dokumen ini dicetak secara otomatis dari sistem</div>
-    <div style="margin-top: 5px; color: #999; font-size: 7pt;">
+    <div style="margin-top: 5px; color: #999; font-size: 6.5pt;">
       {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
     </div>
   </div>
