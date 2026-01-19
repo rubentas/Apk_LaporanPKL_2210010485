@@ -22,9 +22,11 @@
       background: #fff;
     }
 
-    /* ============================================
-       HEADER RESMI BRI - DIUPDATE
-       ============================================ */
+    ==========
+
+    /* ==================
+       HEADER RESMI BRI
+       ================== */
     .official-header {
       margin-bottom: 15px;
       padding-bottom: 10px;

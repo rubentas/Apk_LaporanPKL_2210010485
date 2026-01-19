@@ -22,9 +22,9 @@
       background: #fff;
     }
 
-    /* ============================================
-       HEADER RESMI BRI - SAMA DENGAN DOKUMEN
-       ============================================ */
+    /* ==================
+       HEADER RESMI BRI
+       ==================*/
     .official-header {
       margin-bottom: 15px;
       padding-bottom: 10px;

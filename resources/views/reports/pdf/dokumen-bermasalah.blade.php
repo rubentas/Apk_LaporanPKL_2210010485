@@ -33,9 +33,9 @@
       padding: 15mm;
     }
 
-    /* ============================================
-       HEADER RESMI BRI - SAMA DENGAN DOKUMEN LAIN
-       ============================================ */
+    /* ===================
+       HEADER RESMI BRI -
+       ===================*/
     .official-header {
       margin-bottom: 15px;
       padding-bottom: 10px;
