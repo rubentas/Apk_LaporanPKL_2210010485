@@ -22,7 +22,8 @@
       font-family: 'Arial', sans-serif;
       font-size: 9pt;
       line-height: 1.4;
-      color: #333;
+      color: #000000;
+      /* Diubah menjadi hitam */
       margin: 0;
       padding: 0;
       width: 210mm;
@@ -64,13 +65,15 @@
       font-size: 9pt;
       line-height: 1.2;
       margin-bottom: 1px;
-      color: #000;
+      color: #000000;
+      /* Diubah menjadi hitam */
     }
 
     .bank-address {
       font-size: 7pt;
       line-height: 1.3;
-      color: #333;
+      color: #000000;
+      /* Diubah menjadi hitam */
       margin-top: 3px;
       max-width: 500px;
       margin-left: auto;
@@ -81,7 +84,6 @@
       border-bottom: 1px solid #000;
       margin: 5px auto 0 auto;
       width: 100%;
-      max-width: 500px;
     }
 
     /* JUDUL LAPORAN */
@@ -95,12 +97,14 @@
       font-weight: bold;
       text-decoration: underline;
       margin-bottom: 5px;
-      color: #dc3545;
+      color: #000000;
+      /* Diubah menjadi hitam (dari merah) */
     }
 
     .report-subtitle {
       font-size: 9pt;
-      color: #333;
+      color: #000000;
+      /* Diubah menjadi hitam */
       margin-top: 3px;
     }
 
@@ -129,10 +133,14 @@
       padding: 7px 6px;
       border: 1px solid #e0e0e0;
       vertical-align: top;
+      background: #ffffff;
+      /* Pastikan background putih */
     }
 
+    /* MENGHAPUS BACKGROUND COLOR PADA BARIS GENAP */
     table tbody tr:nth-child(even) {
-      background: #f9f9f9;
+      background: #ffffff;
+      /* Diubah menjadi putih */
     }
 
     /* COLUMN WIDTHS */
@@ -169,59 +177,66 @@
       word-wrap: break-word;
     }
 
-    /* STATUS BADGES */
+    /* STATUS BADGES - DIUBAH MENJADI TEKS BIASA TANPA BACKGROUND */
     .status-badge {
       display: inline-block;
       padding: 3px 8px;
-      border-radius: 3px;
       font-size: 8pt;
-      font-weight: bold;
+      font-weight: normal;
       text-align: center;
       min-width: 60px;
+      border-radius: 0;
+      background: none !important;
     }
 
     .status-expired {
-      background: #dc3545;
-      color: white;
+      color: #000000;
+      /* Diubah menjadi hitam */
     }
 
     .status-rejected {
-      background: #ffc107;
-      color: #000;
+      color: #000000;
+      /* Diubah menjadi hitam */
     }
 
     .status-pending {
-      background: #17a2b8;
-      color: white;
+      color: #000000;
+      /* Diubah menjadi hitam */
     }
 
     .status-nik-duplicate {
-      background: #6f42c1;
-      color: white;
+      color: #000000;
+      /* Diubah menjadi hitam */
     }
 
     /* EMPTY STATE */
     .empty-state {
       text-align: center;
       padding: 40px 20px;
-      color: #28a745;
+      color: #000000;
+      /* Diubah menjadi hitam */
       font-weight: bold;
       font-size: 10pt;
-      border: 1px solid #28a745;
+      border: 1px solid #000000;
+      /* Diubah menjadi hitam */
       border-radius: 5px;
       margin: 30px 0;
-      background: #f8fff8;
+      background: #ffffff;
+      /* Background putih */
     }
 
     /* SUMMARY FOOTNOTE */
     .summary-note {
       margin-top: 15px;
       font-size: 8pt;
-      color: #666;
+      color: #000000;
+      /* Diubah menjadi hitam */
       padding: 8px;
-      background: #f8f9fa;
+      background: #ffffff;
+      /* Background putih */
       border-radius: 3px;
-      border-left: 3px solid #0033a0;
+      border-left: 3px solid #000000;
+      /* Diubah menjadi hitam */
     }
 
     /* FOOTER - MINIMAL */
@@ -231,7 +246,8 @@
       border-top: 1px solid #eee;
       text-align: center;
       font-size: 7pt;
-      color: #777;
+      color: #000000;
+      /* Diubah menjadi hitam */
       line-height: 1.3;
     }
 
@@ -242,7 +258,8 @@
 
     .small-text {
       font-size: 7pt;
-      color: #666;
+      color: #000000;
+      /* Diubah menjadi hitam */
       display: block;
       margin-top: 2px;
     }
@@ -392,14 +409,14 @@
     @else
       <div class="empty-state">
         ✓ TIDAK ADA DOKUMEN BERMASALAH<br>
-        <span style="font-size: 8pt; color: #666;">Semua dokumen dalam kondisi normal</span>
+        <span style="font-size: 8pt; color: #000000;">Semua dokumen dalam kondisi normal</span>
       </div>
     @endif
 
     <!-- FOOTER -->
     <div class="footer">
       <div>Dokumen ini dicetak secara otomatis dari sistem</div>
-      <div style="margin-top: 5px; color: #999; font-size: 6.5pt;">
+      <div style="margin-top: 5px; color: #000000; font-size: 6.5pt;">
         {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
       </div>
     </div>

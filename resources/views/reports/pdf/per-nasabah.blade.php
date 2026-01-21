@@ -26,7 +26,6 @@
       margin: 0;
       padding: 0;
       width: 297mm;
-      /* Lebar A4 landscape */
       background: #fff;
     }
 
@@ -84,14 +83,12 @@
       border-bottom: 1px solid #000;
       margin: 5px auto 0 auto;
       width: 100%;
-      max-width: 500px;
     }
 
     /* JUDUL LAPORAN */
     .report-title-section {
       text-align: center;
       margin: 15px 0 20px 0;
-      page-break-after: avoid;
     }
 
     .report-title {
@@ -144,6 +141,7 @@
       vertical-align: top;
       page-break-inside: avoid;
       page-break-before: auto;
+      background: #ffffff;
     }
 
     table tbody tr {
@@ -152,7 +150,7 @@
     }
 
     table tbody tr:nth-child(even) {
-      background: #f9f9f9;
+      background: #ffffff;
     }
 
     /* GROUP ROW UNTUK NASABAH SAMA - TIDAK BISA TERPOTONG */
@@ -163,7 +161,7 @@
     }
 
     .nasabah-header-row td {
-      background: #f0f7ff;
+      background: #ffffff;
       font-weight: bold;
       border-bottom: 1px solid #0033a0;
       page-break-inside: avoid;
@@ -187,6 +185,8 @@
 
     .col-rekening {
       width: 90px;
+      word-wrap: break-word;
+      white-space: normal;
     }
 
     .col-ktp {
@@ -222,35 +222,32 @@
       text-align: center;
     }
 
-    /* STATUS BADGES */
+    /* STATUS BADGES - TEKS BIASA TANPA BACKGROUND */
     .status-badge {
       display: inline-block;
       padding: 3px 6px;
-      border-radius: 3px;
       font-size: 8pt;
-      font-weight: bold;
+      font-weight: normal;
       text-align: center;
       min-width: 60px;
+      border-radius: 0;
+      background: none !important;
     }
 
     .status-pending {
-      background: #ffc107;
-      color: #000;
+      color: #000000;
     }
 
     .status-verified {
-      background: #28a745;
-      color: white;
+      color: #000000;
     }
 
     .status-rejected {
-      background: #dc3545;
-      color: white;
+      color: #000000;
     }
 
     .status-expired {
-      background: #6c757d;
-      color: white;
+      color: #000000;
     }
 
     /* EXPIRY INDICATORS */
@@ -284,7 +281,7 @@
       border: 1px dashed #dee2e6;
       border-radius: 5px;
       margin: 20px 0;
-      background: #f8f9fa;
+      background: #ffffff;
       page-break-inside: avoid;
     }
 
@@ -501,7 +498,7 @@
 
     <!-- FOOTER -->
     <div class="footer">
-      <div>Dokumen ini dicetak secara otomatis dariร sistem</div>
+      <div>Dokumen ini dicetak secara otomatis dari sistem</div>
       <div style="margin-top: 5px; color: #999; font-size: 6.5pt;">
         {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
       </div>

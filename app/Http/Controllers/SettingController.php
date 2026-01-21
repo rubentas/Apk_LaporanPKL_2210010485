@@ -57,21 +57,4 @@ class SettingController extends Controller
       return back()->withErrors(['error' => 'Gagal update profile: ' . $e->getMessage()]);
     }
   }
-
-  // About System Page
-  public function about()
-  {
-    $systemInfo = [
-      'name' => 'Sistem Manajemen Arsip Digital BRI',
-      'version' => '1.0.0',
-      'developer' => 'Tim PKL BRI',
-      'framework' => 'Laravel ' . app()->version(),
-      'php_version' => PHP_VERSION,
-      'database' => config('database.default'),
-      'environment' => app()->environment(),
-      'last_update' => 'December 2025',
-    ];
-
-    return view('settings.about', compact('systemInfo'));
-  }
 }

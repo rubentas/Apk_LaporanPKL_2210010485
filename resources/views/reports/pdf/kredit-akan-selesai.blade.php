@@ -26,7 +26,6 @@
       margin: 0;
       padding: 0;
       width: 297mm;
-      /* Lebar A4 landscape */
       background: #fff;
     }
 
@@ -34,9 +33,9 @@
       padding: 15mm;
     }
 
-    /* =================
+    /* ============================================
        HEADER RESMI BRI
-       ================= */
+       ============================================ */
     .official-header {
       margin-bottom: 15px;
       padding-bottom: 10px;
@@ -82,7 +81,6 @@
       border-bottom: 1px solid #000;
       margin: 5px auto 0 auto;
       width: 100%;
-      max-width: 500px;
     }
 
     /* JUDUL LAPORAN */
@@ -114,18 +112,17 @@
 
     /* FILTER INFO */
     .filter-info {
-      background: #fff3cd;
       padding: 5px 8px;
       margin-bottom: 10px;
       border-radius: 3px;
       font-size: 8pt;
-      border-left: 3px solid #ffc107;
+      border-left: 3px solid #0033a0;
+      background: #f8f9fa;
     }
 
     /* TABLE - CLEAN */
     .table-container {
-      margin-top: 5px;
-      overflow: hidden;
+      margin-top: 10px;
     }
 
     table {
@@ -141,7 +138,6 @@
       border: 1px solid #ddd;
       font-weight: bold;
       text-align: left;
-      vertical-align: middle;
     }
 
     table tbody td {
@@ -207,37 +203,6 @@
       text-align: center;
     }
 
-    /* BADGES */
-    .badge {
-      display: inline-block;
-      padding: 3px 6px;
-      border-radius: 3px;
-      font-size: 7.5pt;
-      font-weight: bold;
-      text-align: center;
-      min-width: 50px;
-    }
-
-    .badge-success {
-      background: #28a745;
-      color: white;
-    }
-
-    .badge-warning {
-      background: #ffc107;
-      color: #000;
-    }
-
-    .badge-danger {
-      background: #dc3545;
-      color: white;
-    }
-
-    .badge-info {
-      background: #17a2b8;
-      color: white;
-    }
-
     /* EMPTY STATE */
     .empty-state {
       text-align: center;
@@ -251,7 +216,7 @@
       background: #f8f9fa;
     }
 
-    /* FOOTER - MINIMAL */
+    /* FOOTER */
     .footer {
       margin-top: 15px;
       padding-top: 8px;
@@ -338,26 +303,22 @@
                 <td class="col-nominal">Rp {{ number_format($doc->nominal_kredit, 0, ',', '.') }}</td>
                 <td class="col-tahun text-center">{{ $doc->tahun_pengajuan }}</td>
                 <td class="col-tenor text-center">{{ $doc->tenor }} bln</td>
-                <td class="col-estimasi text-center">
-                  <span class="badge {{ $doc->estimasi_selesai == $tahun_ini ? 'badge-success' : 'badge-warning' }}">
-                    {{ $doc->estimasi_selesai }}
-                  </span>
-                </td>
+                <td class="col-estimasi text-center">{{ $doc->estimasi_selesai }}</td>
                 <td class="col-sisa text-center">
                   @php $sisa = $doc->estimasi_selesai - $tahun_ini; @endphp
                   @if ($sisa == 0)
-                    <span class="badge badge-danger">Tahun ini</span>
+                    Tahun ini
                   @else
-                    <span class="badge badge-info">{{ $sisa }} tahun</span>
+                    {{ $sisa }} tahun
                   @endif
                 </td>
                 <td class="col-status text-center">
                   @if ($doc->status_riwayat == 'bersih')
-                    <span class="badge badge-success">Bersih</span>
+                    Bersih
                   @elseif($doc->status_riwayat == 'pernah_telat')
-                    <span class="badge badge-warning">P.Telat</span>
+                    P.Telat
                   @else
-                    <span class="badge badge-danger">Masalah</span>
+                    Masalah
                   @endif
                 </td>
                 <td class="col-bunga text-center">{{ $doc->suku_bunga }}%</td>
@@ -374,7 +335,7 @@
 
     <!-- FOOTER -->
     <div class="footer">
-      <div>Laporan ini digunakan untuk monitoring kredit yang akan selesai dalam 2 tahun ke depan</div>
+      <div>Dokumen ini dicetak secara otomatis dari sistem</div>
       <div style="margin-top: 5px; color: #999; font-size: 6.5pt;">
         {{ date('d/m/Y H:i') }} • BRI KC Tanjung Tabalong
       </div>

@@ -348,34 +348,6 @@
           </div>
         </div>
       </div>
-
-      <!-- System Info -->
-      <div class="card card-secondary card-outline">
-        <div class="card-header">
-          <h3 class="card-title">
-            <i class="fas fa-info-circle mr-2"></i>
-            Informasi Sistem
-          </h3>
-        </div>
-        <div class="card-body">
-          <div class="info-item mb-3">
-            <i class="fas fa-server text-primary mr-2"></i>
-            <strong>Status Server:</strong>
-            <span class="badge badge-success float-right">Online</span>
-          </div>
-          <div class="info-item mb-3">
-            <i class="fas fa-database text-info mr-2"></i>
-            <strong>Database:</strong>
-            <span class="badge badge-success float-right">Connected</span>
-          </div>
-          <div class="info-item mb-3">
-            <i class="fas fa-hdd text-warning mr-2"></i>
-            <strong>Storage:</strong>
-            <span class="text-muted float-right">75% Used</span>
-          </div>
-
-        </div>
-      </div>
     </section>
   </div>
 @endsection

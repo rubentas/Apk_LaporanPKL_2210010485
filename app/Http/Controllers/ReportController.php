@@ -96,7 +96,7 @@ class ReportController extends Controller
     ];
 
     $pdf = Pdf::loadView('reports.pdf.daftar-dokumen-pdf', $data)
-      ->setPaper('a4', 'landscape');
+      ->setPaper('a4', 'portrait');
 
     if ($request->has('preview') && $request->preview == 1) {
       return $pdf->stream('laporan-daftar-dokumen-' . date('Y-m-d') . '.pdf');

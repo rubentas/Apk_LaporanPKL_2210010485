@@ -70,7 +70,6 @@
       border-bottom: 1px solid #000;
       margin: 5px auto 0 auto;
       width: 100%;
-      max-width: 500px;
     }
 
     /* JUDUL LAPORAN */

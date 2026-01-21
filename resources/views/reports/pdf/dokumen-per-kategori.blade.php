@@ -33,9 +33,9 @@
       padding: 15mm;
     }
 
-    /* =================
+    /* ============================================
        HEADER RESMI BRI
-       ================= */
+       ============================================ */
     .official-header {
       margin-bottom: 15px;
       padding-bottom: 10px;
@@ -81,7 +81,6 @@
       border-bottom: 1px solid #000;
       margin: 5px auto 0 auto;
       width: 100%;
-      max-width: 500px;
     }
 
     /* JUDUL LAPORAN */
@@ -107,14 +106,12 @@
     /* TABLE - CLEAN */
     .table-container {
       margin-top: 10px;
-      overflow: hidden;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 8pt;
-      table-layout: fixed;
     }
 
     table thead th {
@@ -136,7 +133,7 @@
       background: #f9f9f9;
     }
 
-    /* COLUMN WIDTHS - PORTRAIT */
+    /* COLUMN WIDTHS */
     .col-no {
       width: 30px;
       text-align: center;
@@ -177,54 +174,14 @@
       text-align: center;
     }
 
-    /* BADGES - SIMPLE */
-    .badge {
-      display: inline-block;
-      padding: 3px 6px;
-      border-radius: 3px;
-      font-size: 8pt;
-      font-weight: bold;
-      text-align: center;
-      min-width: 40px;
-    }
-
-    .badge-total {
-      background: #0033a0;
-      color: white;
-    }
-
-    .badge-pending {
-      background: #ffc107;
-      color: #000;
-    }
-
-    .badge-verified {
-      background: #28a745;
-      color: white;
-    }
-
-    .badge-rejected {
-      background: #dc3545;
-      color: white;
-    }
-
-    .badge-expired {
-      background: #6c757d;
-      color: white;
-    }
-
-    /* TOTAL ROW STYLE */
+    /* TOTAL ROW */
     .total-row {
       font-weight: bold;
       background: #f0f0f0 !important;
       border-top: 2px solid #0033a0;
     }
 
-    .total-row td {
-      font-weight: bold;
-    }
-
-    /* FOOTER - MINIMAL */
+    /* FOOTER */
     .footer {
       margin-top: 20px;
       padding-top: 8px;
@@ -248,7 +205,7 @@
 
 <body>
   <div class="page-container">
-    <!-- HEADER RESMI BRI  -->
+    <!-- HEADER RESMI BRI DENGAN LOGO -->
     <div class="official-header">
       <div class="logo-container">
         <img src="{{ public_path('adminlte/dist/img/LogoBankBRI.png') }}" alt="Logo BRI" class="logo-bri">
@@ -271,7 +228,7 @@
       <div class="report-subtitle">Sistem Arsip Digital Administrasi Kredit</div>
     </div>
 
-    <!-- KATEGORI TABEL -->
+    <!-- CATEGORY TABLE -->
     <div class="table-container">
       <table>
         <thead>
@@ -304,33 +261,31 @@
             <tr>
               <td class="col-no text-center">{{ $loop->iteration }}</td>
               <td class="col-kategori">{{ $data['label'] }}</td>
-              <td class="col-total text-center">
-                <span class="badge badge-total">{{ $data['total'] }}</span>
-              </td>
+              <td class="col-total text-center">{{ $data['total'] }}</td>
               <td class="col-pending text-center">
                 @if ($data['pending'] > 0)
-                  <span class="badge badge-pending">{{ $data['pending'] }}</span>
+                  {{ $data['pending'] }}
                 @else
                   -
                 @endif
               </td>
               <td class="col-verified text-center">
                 @if ($data['verified'] > 0)
-                  <span class="badge badge-verified">{{ $data['verified'] }}</span>
+                  {{ $data['verified'] }}
                 @else
                   -
                 @endif
               </td>
               <td class="col-rejected text-center">
                 @if ($data['rejected'] > 0)
-                  <span class="badge badge-rejected">{{ $data['rejected'] }}</span>
+                  {{ $data['rejected'] }}
                 @else
                   -
                 @endif
               </td>
               <td class="col-expired text-center">
                 @if ($data['expired'] > 0)
-                  <span class="badge badge-expired">{{ $data['expired'] }}</span>
+                  {{ $data['expired'] }}
                 @else
                   -
                 @endif
@@ -344,38 +299,36 @@
           <!-- TOTAL ROW -->
           <tr class="total-row">
             <td colspan="2" class="text-right"><strong>TOTAL</strong></td>
-            <td class="col-total text-center">
-              <span class="badge badge-total">{{ $summary['total_documents'] }}</span>
-            </td>
+            <td class="col-total text-center"><strong>{{ $summary['total_documents'] }}</strong></td>
             <td class="col-pending text-center">
               @if ($totalPending > 0)
-                <span class="badge badge-pending">{{ $totalPending }}</span>
+                <strong>{{ $totalPending }}</strong>
               @else
                 -
               @endif
             </td>
             <td class="col-verified text-center">
               @if ($totalVerified > 0)
-                <span class="badge badge-verified">{{ $totalVerified }}</span>
+                <strong>{{ $totalVerified }}</strong>
               @else
                 -
               @endif
             </td>
             <td class="col-rejected text-center">
               @if ($totalRejected > 0)
-                <span class="badge badge-rejected">{{ $totalRejected }}</span>
+                <strong>{{ $totalRejected }}</strong>
               @else
                 -
               @endif
             </td>
             <td class="col-expired text-center">
               @if ($totalExpired > 0)
-                <span class="badge badge-expired">{{ $totalExpired }}</span>
+                <strong>{{ $totalExpired }}</strong>
               @else
                 -
               @endif
             </td>
-            <td class="col-percentage text-center">100%</td>
+            <td class="col-percentage text-center"><strong>100%</strong></td>
           </tr>
         </tbody>
       </table>

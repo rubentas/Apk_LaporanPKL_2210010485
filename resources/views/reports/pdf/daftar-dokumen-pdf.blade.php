@@ -18,22 +18,24 @@
       line-height: 1.4;
       color: #333;
       margin: 0;
-      padding: 15mm;
+      padding: 0;
+      width: 210mm;
       background: #fff;
     }
 
-    ==========
+    .page-container {
+      padding: 15mm;
+    }
 
-    /* ==================
+    /* ============================================
        HEADER RESMI BRI
-       ================== */
+       ============================================ */
     .official-header {
       margin-bottom: 15px;
       padding-bottom: 10px;
       border-bottom: 3px solid #000;
       position: relative;
       text-align: center;
-      /* Center align untuk seluruh header */
     }
 
     .logo-container {
@@ -43,9 +45,7 @@
 
     .logo-bri {
       height: 70px;
-      /* Tinggi logo */
       margin: 0 auto;
-      /* Center logo */
       display: block;
     }
 
@@ -75,7 +75,6 @@
       border-bottom: 1px solid #000;
       margin: 5px auto 0 auto;
       width: 100%;
-      max-width: 500px;
     }
 
     /* JUDUL LAPORAN */
@@ -96,27 +95,6 @@
       font-size: 9pt;
       color: #333;
       margin-top: 3px;
-    }
-
-    /* SUMMARY BOX - CLEAN */
-    .summary-box {
-      background: #f8f9fa;
-      padding: 6px 8px;
-      margin: 10px 0 15px 0;
-      border-radius: 3px;
-      border-left: 3px solid #0033a0;
-      font-size: 8pt;
-    }
-
-    .summary-grid {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .total-docs {
-      font-weight: bold;
-      color: #0033a0;
     }
 
     /* TABLE */
@@ -144,10 +122,11 @@
       padding: 5px 4px;
       border: 1px solid #e0e0e0;
       vertical-align: top;
+      background: #ffffff;
     }
 
     tbody tr:nth-child(even) {
-      background: #fafafa;
+      background: #ffffff;
     }
 
     /* COLUMN WIDTHS */
@@ -166,6 +145,8 @@
 
     .col-rekening {
       width: 75px;
+      word-wrap: break-word;
+      white-space: normal;
     }
 
     .col-jenis {
@@ -178,6 +159,7 @@
 
     .col-status {
       width: 55px;
+      text-align: center;
     }
 
     .col-tanggal {
@@ -188,35 +170,32 @@
       width: 65px;
     }
 
-    /* STATUS BADGES */
+    /* STATUS BADGES - TEKS BIASA TANPA BACKGROUND */
     .status {
       display: inline-block;
       padding: 2px 4px;
-      border-radius: 2px;
       font-size: 7pt;
-      font-weight: bold;
+      font-weight: normal;
       text-align: center;
       min-width: 50px;
+      border-radius: 0;
+      background: none !important;
     }
 
     .status-verified {
-      background: #28a745;
-      color: white;
+      color: #000000;
     }
 
     .status-pending {
-      background: #ffc107;
-      color: #000;
+      color: #000000;
     }
 
     .status-rejected {
-      background: #dc3545;
-      color: white;
+      color: #000000;
     }
 
     .status-expired {
-      background: #6c757d;
-      color: white;
+      color: #000000;
     }
 
     /* FOOTER - MINIMAL */
@@ -238,7 +217,7 @@
     .small {
       font-size: 7pt;
       display: block;
-      color: #888;
+      color: #000000;
     }
 
     .highlight {
@@ -246,110 +225,94 @@
       padding: 1px 3px;
       border-radius: 2px;
     }
-
-    /* BASE64 LOGO FALLBACK */
-    .logo-fallback {
-      display: none;
-    }
   </style>
 </head>
 
 <body>
+  <div class="page-container">
+    <!-- HEADER RESMI BRI DENGAN LOGO -->
+    <div class="official-header">
+      <div class="logo-container">
+        <img src="{{ public_path('adminlte/dist/img/LogoBankBRI.png') }}" alt="Logo BRI" class="logo-bri">
+      </div>
 
-  <!-- HEADER RESMI BRI DENGAN LOGO -->
-  <div class="official-header">
-    <div class="logo-container">
-      <!-- Logo dari path yang kamu berikan -->
-      <img src="{{ public_path('adminlte/dist/img/LogoBankBRI.png') }}" alt="Logo BRI" class="logo-bri">
+      <div class="bank-info">
+        <div class="bank-name">PT. BANK RAKYAT INDONESIA (PERSERO) Tbk</div>
+        <div class="bank-name">KANTOR CABANG TANJUNG TABALONG</div>
+        <div class="header-line"></div>
+        <div class="bank-address">
+          Jalan Putri Zaleha No.2 RT.003, Tanjung, Tabalong, Kalimantan Selatan 71571<br>
+          Telepon: (0526) 2021030 • Email: bri.tanjungtabalong@bri.co.id
+        </div>
+      </div>
     </div>
 
-    <div class="bank-info">
-      <div class="bank-name">PT. BANK RAKYAT INDONESIA (PERSERO) Tbk</div>
-      <div class="bank-name">KANTOR CABANG TANJUNG TABALONG</div>
-      <div class="header-line"></div>
-      <div class="bank-address">
-        Jalan Putri Zaleha No.2 RT.003, Tanjung, Tabalong, Kalimantan Selatan 71571<br>
-        Telepon: (0526) 2021030 • Email: bri.tanjungtabalong@bri.co.id
+    <!-- JUDUL LAPORAN -->
+    <div class="report-title-section">
+      <div class="report-title">LAPORAN DAFTAR DOKUMEN</div>
+      <div class="report-subtitle">Sistem Arsip Digital Administrasi Kredit</div>
+    </div>
+
+    <!-- TABLE LANGSUNG TANPA SUMMARY -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-no">No</th>
+            <th class="col-id">ID</th>
+            <th class="col-nama">Nama Nasabah</th>
+            <th class="col-rekening">No Rekening</th>
+            <th class="col-jenis">Jenis Dokumen</th>
+            <th class="col-kategori">Kategori</th>
+            <th class="col-status">Status</th>
+            <th class="col-tanggal">Tgl. Upload</th>
+            <th class="col-expired">Expired</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($documents as $document)
+            <tr>
+              <td class="col-no text-center">{{ $loop->iteration }}</td>
+              <td class="col-id">{{ $document->id }}</td>
+              <td class="col-nama">
+                {{ $document->nama_nasabah }}
+                <span class="small">KTP: {{ $document->no_ktp }}</span>
+              </td>
+              <td class="col-rekening">{{ $document->no_rekening }}</td>
+              <td class="col-jenis">{{ $document->jenis_dokumen }}</td>
+              <td class="col-kategori">{{ $document->kategori_kredit }}</td>
+              <td class="col-status text-center">
+                @php
+                  $statusClass = 'status-' . $document->status;
+                  $statusLabel = ucfirst($document->status);
+                @endphp
+                <span class="status {{ $statusClass }}">{{ $statusLabel }}</span>
+              </td>
+              <td class="col-tanggal">{{ $document->created_at->format('d/m/Y') }}</td>
+              <td class="col-expired">
+                @if ($document->expired_date)
+                  {{ $document->expired_date->format('d/m/Y') }}
+                  @if ($document->expired_date->isPast())
+                    <span class="status status-expired">EXP</span>
+                  @endif
+                @else
+                  -
+                @endif
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div>Dokumen ini dicetak secara otomatis dari sistem</div>
+      <div style="margin-top: 5px; color: #999; font-size: 6.5pt;">
+        {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
       </div>
     </div>
   </div>
-
-  <!-- JUDUL LAPORAN -->
-  <div class="report-title-section">
-    <div class="report-title">LAPORAN DAFTAR DOKUMEN</div>
-    <div class="report-subtitle">Sistem Arsip Digital Administrasi Kredit</div>
-  </div>
-
-  <!-- SUMMARY BOX -->
-  <div class="summary-box">
-    <div class="summary-grid">
-      <div class="total-docs">Total: {{ $documents->count() }} dokumen</div>
-      @if (isset($is_selected_report) && $is_selected_report)
-        <div style="color: #dc3545; font-weight: bold;">• Dokumen Terpilih</div>
-      @endif
-    </div>
-  </div>
-
-  <!-- TABLE -->
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th class="col-no">No</th>
-          <th class="col-id">ID</th>
-          <th class="col-nama">Nama Nasabah</th>
-          <th class="col-rekening">No Rekening</th>
-          <th class="col-jenis">Jenis Dokumen</th>
-          <th class="col-kategori">Kategori</th>
-          <th class="col-status">Status</th>
-          <th class="col-tanggal">Tgl. Upload</th>
-          <th class="col-expired">Expired</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($documents as $document)
-          <tr>
-            <td class="col-no text-center">{{ $loop->iteration }}</td>
-            <td class="col-id">{{ $document->id }}</td>
-            <td class="col-nama">
-              {{ $document->nama_nasabah }}
-              <span class="small">KTP: {{ $document->no_ktp }}</span>
-            </td>
-            <td class="col-rekening">{{ $document->no_rekening }}</td>
-            <td class="col-jenis">{{ $document->jenis_dokumen }}</td>
-            <td class="col-kategori">{{ $document->kategori_kredit }}</td>
-            <td class="col-status text-center">
-              @php
-                $statusClass = 'status-' . $document->status;
-                $statusLabel = ucfirst($document->status);
-              @endphp
-              <span class="status {{ $statusClass }}">{{ $statusLabel }}</span>
-            </td>
-            <td class="col-tanggal">{{ $document->created_at->format('d/m/Y') }}</td>
-            <td class="col-expired">
-              @if ($document->expired_date)
-                {{ $document->expired_date->format('d/m/Y') }}
-                @if ($document->expired_date->isPast())
-                  <span class="status status-expired">EXP</span>
-                @endif
-              @else
-                -
-              @endif
-            </td>
-          </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div>Dokumen ini dicetak secara otomatis dari sistem</div>
-    <div style="margin-top: 5px; color: #999; font-size: 6.5pt;">
-      {{ $tanggal_cetak }} • BRI KC Tanjung Tabalong
-    </div>
-  </div>
-
 </body>
 
 </html>

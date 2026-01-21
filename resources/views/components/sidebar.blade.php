@@ -213,13 +213,6 @@
                 <p>Profil</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="{{ route('settings.about') }}"
-                class="nav-link {{ request()->routeIs('settings.about') ? 'active' : '' }}">
-                <i class="far fa-circle nav-icon text-sm"></i>
-                <p>Tentang Sistem</p>
-              </a>
-            </li>
           </ul>
         </li>
 
@@ -251,10 +244,6 @@
 
 @push('styles')
   <style>
-    /* ============================================
-                         CUSTOM SIDEBAR STYLES (Compatible with AdminLTE)
-                         ============================================ */
-
     /* Logo Container - Simple Center */
     .text-center.py-2 {
       text-align: center !important;
@@ -387,10 +376,6 @@
     .nav-compact .nav-link p {
       font-size: 0.9rem;
     }
-
-    /* ============================================
-                         RESPONSIVE BREAKPOINTS
-                         ============================================ */
 
     /* Tablet & Mobile */
     @media (max-width: 991.98px) {
